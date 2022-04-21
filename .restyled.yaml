@@ -1,0 +1,14 @@
+restylers:
+  - clang-format:
+      enabled: false
+  - jq:
+      enabled: false # prefer prettier-json
+  - prettier:
+      include:
+        - 'src/**/*.js'
+        - 'src/**/*.ts'
+  - whitespace:
+      include:
+        - '**/*'
+        - '!dist/*'
+        - '!flow/*'
