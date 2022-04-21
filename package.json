@@ -15,7 +15,7 @@
     },
     "dependencies": {
         "@freckle/exhaustive-js": "https://github.com/freckle/exhaustive-js.git#v1.0.0",
-        "@freckle/non-empty-js": "https://github.com/freckle/non-empty-js.git#v1.0.0",
+        "@freckle/non-empty-js": "https://github.com/freckle/non-empty-js.git#v1.0.1",
         "lodash": "4.17.21",
         "moment-timezone": "0.5.33"
     },
