@@ -1,0 +1,32 @@
+{
+    "name": "@freckle/parser-js",
+    "version": "1.0.0",
+    "description": "One that parses",
+    "main": "./dist/index.js",
+    "repository": "https://github.com/freckle/parser-js.git",
+    "author": "Freckle",
+    "license": "MIT",
+    "scripts": {
+        "build": "babel src -d dist --ignore \"src/**/*.test.js\" &&flow-copy-source -i \"src/**/*.test.js\" src dist",
+        "test": "jest",
+        "flow": "flow",
+        "format": "prettier --write 'src/**/*.js'",
+        "check-git-clean": "./check-git-clean.sh"
+    },
+    "dependencies": {
+        "@freckle/exhaustive-js": "https://github.com/freckle/exhaustive-js.git#v1.0.0",
+        "@freckle/non-empty-js": "https://github.com/freckle/non-empty-js.git#v1.0.0",
+        "lodash": "4.17.21",
+        "moment-timezone": "0.5.33"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.17.0",
+        "@babel/core": "^7.17.0",
+        "@babel/preset-env": "^7.16.11",
+        "@babel/preset-flow": "^7.16.7",
+        "flow-bin": "^0.171.0",
+        "flow-copy-source": "2.0.9",
+        "jest": "^27.4.7",
+        "prettier": "^2.5.1"
+    }
+}
