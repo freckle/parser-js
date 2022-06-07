@@ -10,13 +10,6 @@ import {type EitherT} from './either'
 import Either from './either'
 import {formatError} from './formatting'
 
-type $ObjMap<T extends {}, F extends (v: any) => any> = {
-  [K in keyof T]: F extends (v: T[K]) => infer R ? R : never
-}
-
-export {saferStringify} from './formatting'
-export {parseExpect, parseSuccess, parseFailure} from './test-helper'
-
 // Recoverable errors mean we can try another parser in
 // firstOf. Fatal errors short circuit any operation.
 type LevelT = 'recoverable' | 'fatal'
@@ -47,11 +40,15 @@ function propagate(level: LevelT | undefined | null, next: ErrorStackT): LevelT 
 // Represent parse failure or success
 export type ParseResultT<R> = EitherT<ErrorStackT, R>
 
-// A ParserT can validate any object and describe the type of input on which it will succeed
-export type ParserT<R> = {
+type ParserBaseT<R> = {
   parse: (x: any, path: PathT) => ParseResultT<R>
   expected: string
 }
+
+// A ParserT can validate any object and describe the type of input on which it will succeed
+ export type ParserT<R> = {
+   type: 'parser'
+ } & ParserBaseT<R>
 
 // A RenamerT is a ParserT that can select different fields in a record
 //
@@ -59,21 +56,22 @@ export type ParserT<R> = {
 // fields() as a value in record({key: value}). It doesn't make sense
 // (and in fact does not work) anywhere else
 export type RenamerT<R> = {
+  type: 'renamer'
   fields: NonEmptyArray<string>
-} & ParserT<R>
+} & ParserBaseT<R>
 
 // A TagParserT is a ParserT that commits a record parse by observing the
 // presence of a special "tag" field
 export type TagParserT<R> = {
-  isTag: boolean
-} & ParserT<R>
+  type: 'tag'
+} & ParserBaseT<R>
 
 // A SelfParserT is a ParserT that doesn't follow any key down into
 // the object. Rather, it parses itself, but attaches the result to
 // some key in the output.
 export type SelfParserT<R> = {
-  onSelf: boolean
-} & ParserT<R>
+  type: 'self'
+} & ParserBaseT<R>
 
 // ParserT used as the value in a record parser
 export type RecordParserT<R> = ParserT<R> | RenamerT<R> | TagParserT<R> | SelfParserT<R>
@@ -89,7 +87,7 @@ function stringify<A extends HasToString>(a: A): string {
 export function tag<R extends string | number>(value: R): TagParserT<R> {
   const expected = `tag(${stringify(value)})`
   return {
-    isTag: true,
+    type: 'tag',
     expected,
     parse: x => {
       return x === value ? Parser.ok(x) : Parser.fail({expected, got: x})
@@ -101,7 +99,7 @@ export function onSelf<R>(parser: ParserT<R>): SelfParserT<R> {
   const {parse} = parser
   const expected = `onSelf(${parser.expected})`
   return {
-    onSelf: true,
+    type: 'self',
     expected,
     parse
   }
@@ -113,6 +111,7 @@ export function onSelf<R>(parser: ParserT<R>): SelfParserT<R> {
 export function literal<R extends string | number>(value: R): ParserT<R> {
   const expected = `literal(${stringify(value)})`
   return {
+    type: 'parser',
     expected,
     parse: x => {
       return x === value ? Parser.ok(x) : Parser.fail({expected, got: x})
@@ -124,6 +123,7 @@ export function literal<R extends string | number>(value: R): ParserT<R> {
 export function typeOf<R>(ty: string): ParserT<R> {
   const expected = `typeOf(${stringify(ty)})`
   return {
+    type: 'parser',
     expected,
     parse: x => {
       return typeof x === ty ? Parser.ok(x) : Parser.fail({expected, got: x})
@@ -135,6 +135,7 @@ export function typeOf<R>(ty: string): ParserT<R> {
 export function pure<A extends HasToString>(a: A): ParserT<A> {
   const expected = `pure(${stringify(a)})`
   return {
+    type: 'parser',
     expected,
     parse: _ => Parser.ok(a)
   }
@@ -143,6 +144,7 @@ export function pure<A extends HasToString>(a: A): ParserT<A> {
 // Parser for any
 export function any(): ParserT<any> {
   return {
+    type: 'parser',
     expected: 'any()',
     parse: Parser.ok
   }
@@ -157,6 +159,7 @@ export function string(): ParserT<string> {
 export function stringInt(): ParserT<number> {
   const expected = 'stringInt()'
   return {
+    type: 'parser',
     expected,
     parse: x => {
       const mInt = parseInt(x, 10)
@@ -185,21 +188,16 @@ export function boolean(): ParserT<boolean> {
   return typeOf('boolean')
 }
 
-// ParserT<R> is equivalent to a ParserT<R | S> that never
-// returns values of type S
-function weaken<R, S>(parser: ParserT<R>): ParserT<R | S> {
-  return parser as any
-}
-
 // Build parser that returns a default when encountering null or undefined
 function withDefault<R, S>(parser: ParserT<R>, def: S, expected: string): ParserT<R | S> {
   return {
+    type: 'parser',
     expected,
-    parse: (x, path) => {
+    parse: (x: any, path: PathT): ParseResultT<R | S> => {
       if (x === null || x === undefined) {
         return Parser.ok(def)
       }
-      return Parser.context({expected}, weaken(parser).parse(x, path))
+      return Parser.context<R>({expected}, parser.parse(x, path))
     }
   }
 }
@@ -257,6 +255,7 @@ function collect<R>(
 export function array<R>(parser: ParserT<R>): ParserT<Array<R>> {
   const expected = `array(${parser.expected})`
   return {
+    type: 'parser',
     expected,
     parse: (xs, path) => {
       if (!Array.isArray(xs)) {
@@ -272,14 +271,13 @@ export function array<R>(parser: ParserT<R>): ParserT<Array<R>> {
 export function nonEmptyArray<R>(parser: ParserT<R>): ParserT<NonEmptyArray<R>> {
   const expected = `nonEmptyArray(${parser.expected})`
   return {
+    type: 'parser',
     expected,
     parse: (xs, path) => {
       if (!Array.isArray(xs) || xs.length === 0) {
         return Parser.fail({expected, got: xs})
       }
-
-      // flow can't use the test above as evidence that xs is non-empty
-      return collect(parser, xs, {path, expected}) as any
+      return collect(parser, xs, {path, expected})
     }
   }
 }
@@ -288,6 +286,7 @@ export function nonEmptyArray<R>(parser: ParserT<R>): ParserT<NonEmptyArray<R>> 
 export function date(): ParserT<Moment> {
   const expected = 'date()'
   return {
+    type: 'parser',
     expected,
     parse: x => {
       if (typeof x !== 'string') {
@@ -313,6 +312,7 @@ export function stringEnum<R>(
   // identify Parser
   const expected = `stringEnum(${stringify(name)}, _)`
   return {
+    type: 'parser',
     expected,
     parse: x => {
       if (typeof x !== 'string') {
@@ -335,7 +335,7 @@ export function stringEnum<R>(
 // > type MyType = 'foo' | 'bar' | 'baz'
 // > oneOf('MyType', ['foo', 'bar', 'baz'])
 //
-export function oneOf<R>(name: string, all: Array<R>): ParserT<R> {
+export function oneOf<T extends string>(name: string, all: Array<T>): ParserT<T> {
   return stringEnum(name, (text: string) => find(all, value => value === text))
 }
 
@@ -347,6 +347,7 @@ export function firstOf<R>(first: ParserT<R>, ...rest: Array<ParserT<R>>): Parse
   const expecteds = _map([first, ...rest], parser => parser.expected)
   const expected = `firstOf(${expecteds.join(', ')})`
   return {
+    type: 'parser',
     expected,
     parse: (x, path) => {
       return reduce(
@@ -355,10 +356,7 @@ export function firstOf<R>(first: ParserT<R>, ...rest: Array<ParserT<R>>): Parse
           if (Parser.isFatal(lhs)) {
             return lhs
           }
-          return Either.alt(
-            () => lhs,
-            () => parser.parse(x, path)
-          )
+          return Either.alt(() => lhs, () => parser.parse(x, path))
         },
         first.parse(x, path)
       )
@@ -378,6 +376,7 @@ export function fields<R>(parser: ParserT<R>, first: string, ...rest: Array<stri
   const expectedFields = _map(fields, field => stringify(field)).join(', ')
   const prefix = rest.length === 0 ? 'field' : 'fields'
   return {
+    type: 'renamer',
     fields,
     expected: `${prefix}(${expected}, ${expectedFields})`,
     parse
@@ -395,24 +394,25 @@ export function field<R>(parser: ParserT<R>, field: string): RenamerT<R> {
 }
 
 function extractTagParser<
-  O extends {
-    [key: string]: RecordParserT<any>
-  }
+  S extends {[key: string]: unknown},
+  T extends {
+   [P in keyof S]: RecordParserT<S[P]>
+   }
 >(
-  parsers: O
+  parsers: T
 ): null | {
   key: string
-  parser: TagParserT<any>
+  parser: TagParserT<S>
 } {
   let result = null
   for (const [key, parser] of Object.entries(parsers)) {
-    if ((parser as any).isTag === true) {
+    if (parser.type === 'tag') {
       if (result !== null) {
         throw new Error(
           `Cannot have multiple tag parsers in a single record; first - ${result.key}, second - ${key}`
         )
       }
-      result = {key, parser: parser as any}
+      result = {key, parser}
     }
   }
   return result
@@ -420,18 +420,20 @@ function extractTagParser<
 
 // Parser for records where each key has its own parser
 export function record<
-  O extends {
-    [key: string]: RecordParserT<any>
-  }
->(parsers: O): ParserT<$ObjMap<O, <V>(t: RecordParserT<V>) => V>> {
+   T extends {
+     [P in keyof S]: RecordParserT<S[P]>
+   },
+   S extends {[key: string]: unknown} = {}
+ >(parsers: T): ParserT<S> {
   const keys = Object.keys(parsers).sort()
   const pairs = _map(keys, key => `${key}: ${parsers[key].expected}`)
   const expected = `record({${pairs.join(', ')}})`
   const extracted = extractTagParser(parsers)
 
   return {
+    type: 'parser',
     expected,
-    parse: (x, path) => {
+    parse: (x: any, path: PathT) => {
       if (typeof x !== 'object' || x === null) {
         return Parser.fail({expected, got: x})
       }
@@ -456,8 +458,8 @@ export function record<
         }
       }
 
-      const parseOne = (parser, key, field) => {
-        if (parser.onSelf === true) {
+      const parseOne = (parser: RecordParserT<unknown>, key: string, field: string) => {
+        if (parser.type === 'self') {
           const parsed = parser.parse(x, path)
           return Parser.context({element: path, expected, input: x}, parsed)
         } else {
@@ -472,31 +474,25 @@ export function record<
         keys,
         (acc, key) => {
           return Either.liftA2(
-            (result, parsed) => {
-              result[key] = parsed
-              return result
-            },
+            (result, parsed) => ({
+               ...result,
+               [key]: parsed
+            }),
             () => acc,
             () => {
               const parser = parsers[key]
               const [first, rest] =
-                parser.fields === undefined || parser.fields === null
-                  ? [key, []]
-                  : unconsOnNonEmpty(parser.fields)
+                parser.type === 'renamer' ? unconsOnNonEmpty(parser.fields) : [key, []]
 
               return reduce(
                 rest,
-                (parsed, field) =>
-                  Either.alt(
-                    () => parsed,
-                    () => parseOne(parser, key, field)
-                  ),
+                (parsed, field) => Either.alt(() => parsed, () => parseOne(parser, key, field)),
                 parseOne(parser, first, first)
               )
             }
           )
         },
-        Parser.ok({})
+        Parser.ok({} as S)
       )
 
       // Commit if we found a specific tag
@@ -509,6 +505,7 @@ export function record<
 export function stringMap<V>(parser: ParserT<V>): ParserT<Map<string, V>> {
   const expected = `stringMap(${parser.expected})`
   return {
+    type: 'parser',
     expected,
     parse: (x, path) => {
       if (typeof x !== 'object' || x === null) {
@@ -539,12 +536,13 @@ export function stringMap<V>(parser: ParserT<V>): ParserT<Map<string, V>> {
 }
 
 // Merge two record parsers to parse one object with the union of their keys
-export function merge<L extends any, R extends any>(
+export function merge<L extends object, R extends object>(
   lhs: ParserT<L>,
   rhs: ParserT<R>
 ): ParserT<{} & L & R> {
   const expected = `merge(${lhs.expected}, ${rhs.expected})`
   return {
+    type: 'parser',
     expected,
     parse: (x, path) => {
       return Either.liftA2(
@@ -580,6 +578,7 @@ export function map<A, B>(parser: ParserT<A>, name: string, f: (a: A) => B): Par
 
 function mapInternal<A, B>(parser: ParserT<A>, expected: string, f: (a: A) => B): ParserT<B> {
   return {
+    type: 'parser',
     expected,
     parse: (x, path) => {
       const parsed = parser.parse(x, path)
@@ -592,6 +591,7 @@ function mapInternal<A, B>(parser: ParserT<A>, expected: string, f: (a: A) => B)
 export function obfuscated<R>(parser: ParserT<R>): ParserT<R> {
   const expected = `obfuscated(${parser.expected})`
   return {
+    type: 'parser',
     expected,
     parse: (x, path) =>
       Either.bind(string().parse(x, path), s => {
