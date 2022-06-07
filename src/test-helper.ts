@@ -1,5 +1,3 @@
-/* @flow */
-
 import identity from 'lodash/identity'
 
 import {type ParserT, Parser} from '.'
