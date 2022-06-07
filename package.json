@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@freckle/exhaustive-js": "https://github.com/freckle/exhaustive-js.git#v1.0.0",
-    "@freckle/non-empty-js": "https://github.com/freckle/non-empty-js.git#v1.0.1",
+    "@freckle/non-empty-js": "https://github.com/freckle/non-empty-js.git#v2.1.0",
     "lodash": "4.17.21",
     "moment-timezone": "0.5.33"
   },
@@ -26,6 +26,8 @@
     "@babel/preset-flow": "^7.16.7",
     "flow-bin": "^0.171.0",
     "flow-copy-source": "2.0.9",
+    "@types/jest": "^28.1.1",
+    "@types/lodash": "^4.14.182",
     "jest": "^27.4.7",
     "prettier": "^2.5.1"
   }
