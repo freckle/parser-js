@@ -1,5 +1,3 @@
-/* @flow */
-
 import forEach from 'lodash/forEach'
 
 import {
@@ -27,9 +25,9 @@ import {
   tag,
   onSelf,
   stringMap
-} from './index.js'
+} from './index'
 
-import {parseExpect, parseSuccess, parseFailure} from './test-helper.js'
+import {parseExpect, parseSuccess, parseFailure} from './test-helper'
 
 describe('Parser', () => {
   describe('test', () => {
@@ -43,7 +41,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([1, true, null, {}, []]: Array<any>), x => {
+        forEach([1, true, null, {}, []] as Array<any>, x => {
           parseFailure(x, date())
         })
       })
@@ -59,7 +57,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([1, 'y', true, null, {}, []]: Array<any>), x => {
+        forEach([1, 'y', true, null, {}, []] as Array<any>, x => {
           parseFailure(x, literal('x'))
         })
       })
@@ -71,7 +69,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([1, true, null, {}, []]: Array<any>), x => {
+        forEach([1, true, null, {}, []] as Array<any>, x => {
           parseFailure(x, string())
         })
       })
@@ -83,7 +81,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([true, null, {}, [], '', 'abc']: Array<any>), x => {
+        forEach([true, null, {}, [], '', 'abc'] as Array<any>, x => {
           parseFailure(x, stringInt())
         })
       })
@@ -99,7 +97,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach((['', true, null, {}, []]: Array<any>), x => {
+        forEach(['', true, null, {}, []] as Array<any>, x => {
           parseFailure(x, number())
         })
       })
@@ -116,7 +114,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach((['', true, null, {}, []]: Array<any>), x => {
+        forEach(['', true, null, {}, []] as Array<any>, x => {
           parseFailure(x, rounded())
         })
       })
@@ -136,7 +134,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach((['', true, null, {}, []]: Array<any>), x => {
+        forEach(['', true, null, {}, []] as Array<any>, x => {
           parseFailure(x, fixed(1))
         })
       })
@@ -152,7 +150,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach((['', null, {}, []]: Array<any>), x => {
+        forEach(['', null, {}, []] as Array<any>, x => {
           parseFailure(x, boolean())
         })
       })
@@ -172,7 +170,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([true, '', {}, []]: Array<any>), x => {
+        forEach([true, '', {}, []] as Array<any>, x => {
           parseFailure(x, nullable(number()))
         })
       })
@@ -192,7 +190,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([true, '', {}, []]: Array<any>), x => {
+        forEach([true, '', {}, []] as Array<any>, x => {
           parseFailure(x, nullableDefined(number()))
         })
       })
@@ -208,7 +206,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([true, '', {}, []]: Array<any>), x => {
+        forEach([true, '', {}, []] as Array<any>, x => {
           parseFailure(x, nullableDefault(number(), 0))
         })
       })
@@ -224,17 +222,17 @@ describe('Parser', () => {
       })
 
       test('should fail for non-uniform array', () => {
-        parseFailure(([1, true, 3]: any), array(number()))
+        parseFailure([1, true, 3] as any, array(number()))
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([true, '', {}, null]: Array<any>), x => {
+        forEach([true, '', {}, null] as Array<any>, x => {
           parseFailure(x, array(number()))
         })
       })
 
       test('should fail for incorrect element type', () => {
-        forEach(([true, '', {}, null]: Array<any>), x => {
+        forEach([true, '', {}, null] as Array<any>, x => {
           parseFailure([x], array(number()))
         })
       })
@@ -250,17 +248,17 @@ describe('Parser', () => {
       })
 
       test('should fail for non-uniform array', () => {
-        parseFailure(([1, true, {x: 10}, null]: any), nonEmptyArray(number()))
+        parseFailure([1, true, {x: 10}, null] as any, nonEmptyArray(number()))
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([true, '', {}, null]: Array<any>), x => {
+        forEach([true, '', {}, null] as Array<any>, x => {
           parseFailure(x, nonEmptyArray(number()))
         })
       })
 
       test('should fail for incorrect element type', () => {
-        forEach(([true, '', {}, null]: Array<any>), x => {
+        forEach([true, '', {}, null] as Array<any>, x => {
           parseFailure([x], nonEmptyArray(number()))
         })
       })
@@ -269,7 +267,7 @@ describe('Parser', () => {
     describe('stringEnum', () => {
       type BooleanT = 'yes' | 'no'
 
-      function parseBoolean(text: string): ?BooleanT {
+      function parseBoolean(text: string): BooleanT | undefined | null {
         return text === 'yes' ? 'yes' : text === 'no' ? 'no' : null
       }
 
@@ -289,7 +287,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([true, 1, {}, null]: Array<any>), x => {
+        forEach([true, 1, {}, null] as Array<any>, x => {
           parseFailure(x, parser)
         })
       })
@@ -338,13 +336,13 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([1, true, '', {}, null]: Array<any>), x => {
+        forEach([1, true, '', {}, null] as Array<any>, x => {
           parseFailure(x, record({a: number()}))
         })
       })
 
       test('should fail for incorrect value type', () => {
-        forEach(([true, '', {}, null]: Array<any>), x => {
+        forEach([true, '', {}, null] as Array<any>, x => {
           parseFailure({a: x}, record({a: number()}))
         })
       })
@@ -407,13 +405,13 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([1, true, '', null]: Array<any>), x => {
+        forEach([1, true, '', null] as Array<any>, x => {
           parseFailure(x, stringMap(number()))
         })
       })
 
       test('should fail for incorrect value type', () => {
-        forEach(([true, '', {}, null]: Array<any>), x => {
+        forEach([true, '', {}, null] as Array<any>, x => {
           parseFailure({a: x}, stringMap(number()))
         })
       })
@@ -445,7 +443,7 @@ describe('Parser', () => {
       test('should fail for incorrect type', () => {
         const parser = merge(record({a: nullable(number())}), record({b: boolean()}))
 
-        forEach(([1, true, '', {}, null]: Array<any>), x => {
+        forEach([1, true, '', {}, null] as Array<any>, x => {
           parseFailure(x, parser)
         })
       })
@@ -453,7 +451,7 @@ describe('Parser', () => {
       test('should fail for incorrect value type', () => {
         const parser = merge(record({a: nullable(number())}), record({b: boolean()}))
 
-        forEach(([1, '', {}, null]: Array<any>), x => {
+        forEach([1, '', {}, null] as Array<any>, x => {
           parseFailure({b: x}, parser)
         })
       })
@@ -479,7 +477,7 @@ describe('Parser', () => {
       })
 
       test('should fail for incorrect type', () => {
-        forEach(([true, '', {}, null]: Array<any>), x => {
+        forEach([true, '', {}, null] as Array<any>, x => {
           parseFailure(
             x,
             Parser.map(number(), 'identity', y => y)
@@ -511,7 +509,7 @@ describe('Parser', () => {
         })
 
         test('should fail for incorrect type', () => {
-          forEach(([true, '', {}, null]: Array<any>), x => {
+          forEach([true, '', {}, null] as Array<any>, x => {
             parseFailure(x, Parser.mapStatic(number(), identity))
           })
         })

@@ -1,11 +1,17 @@
-/* @flow */
-
 import map from 'lodash/map'
 
 import {exhaustive} from '@freckle/exhaustive-js'
 
 // Represent components of a path into an object or array
-type PathComponentT = {tag: 'index', index: number} | {tag: 'key', key: string}
+type PathComponentT =
+  | {
+      tag: 'index'
+      index: number
+    }
+  | {
+      tag: 'key'
+      key: string
+    }
 
 // Represent a path into an object or array
 export type PathT = Array<PathComponentT>
@@ -31,7 +37,7 @@ const Path = {
   },
 
   // Convert a Path into a string representation
-  join(path: PathT): ?string {
+  join(path: PathT): string | undefined | null {
     const strings = map(path, component => {
       switch (component.tag) {
         case 'index':

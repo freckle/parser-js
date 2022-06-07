@@ -1,5 +1,3 @@
-/* @flow */
-
 import {exhaustive} from '@freckle/exhaustive-js'
 
 // Represent one of two possible values. A value of EitherT<L, R> is _either_
@@ -8,7 +6,15 @@ import {exhaustive} from '@freckle/exhaustive-js'
 // When used as a result type, it is typical for values tagged with 'right'
 // to represent success (since it's "right") and for values tagged with 'left'
 // to represent failure.
-export type EitherT<L, R> = {tag: 'left', left: L} | {tag: 'right', right: R}
+export type EitherT<L, R> =
+  | {
+      tag: 'left'
+      left: L
+    }
+  | {
+      tag: 'right'
+      right: R
+    }
 
 const Either = {
   // Construct a value with the 'left' tag
@@ -23,7 +29,13 @@ const Either = {
 
   // Pattern match on a value of type EitherT<L, R>. Must supply a branch for both
   // and left and right
-  match<L, R, T>(e: EitherT<L, R>, branches: {left: (left: L) => T, right: (right: R) => T}): T {
+  match<L, R, T>(
+    e: EitherT<L, R>,
+    branches: {
+      left: (left: L) => T
+      right: (right: R) => T
+    }
+  ): T {
     switch (e.tag) {
       case 'left':
         return branches.left(e.left)
