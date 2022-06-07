@@ -24,9 +24,33 @@ exports.number = number;
 exports.obfuscated = obfuscated;
 exports.onSelf = onSelf;
 exports.oneOf = oneOf;
+Object.defineProperty(exports, "parseExpect", {
+  enumerable: true,
+  get: function get() {
+    return _testHelper.parseExpect;
+  }
+});
+Object.defineProperty(exports, "parseFailure", {
+  enumerable: true,
+  get: function get() {
+    return _testHelper.parseFailure;
+  }
+});
+Object.defineProperty(exports, "parseSuccess", {
+  enumerable: true,
+  get: function get() {
+    return _testHelper.parseSuccess;
+  }
+});
 exports.pure = pure;
 exports.record = record;
 exports.rounded = rounded;
+Object.defineProperty(exports, "saferStringify", {
+  enumerable: true,
+  get: function get() {
+    return _formatting2.saferStringify;
+  }
+});
 exports.string = string;
 exports.stringEnum = stringEnum;
 exports.stringInt = stringInt;
@@ -49,6 +73,10 @@ var _path = _interopRequireDefault(require("./path.js"));
 var _either = _interopRequireDefault(require("./either.js"));
 
 var _formatting = require("./formatting.js");
+
+var _formatting2 = require("./formatting");
+
+var _testHelper = require("./test-helper");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 

@@ -12,6 +12,9 @@ import {type EitherT} from './either.js'
 import Either from './either.js'
 import {formatError} from './formatting.js'
 
+export {saferStringify} from './formatting'
+export {parseExpect, parseSuccess, parseFailure} from './test-helper'
+
 // Recoverable errors mean we can try another parser in
 // firstOf. Fatal errors short circuit any operation.
 type LevelT = 'recoverable' | 'fatal'
