@@ -7,7 +7,7 @@
   "author": "Freckle",
   "license": "MIT",
   "scripts": {
-    "build": "babel src -d dist --ignore \"src/**/*.test.js\" &&flow-copy-source -i \"src/**/*.test.js\" src dist",
+    "build": "tsc -d",
     "test": "jest",
     "flow": "flow",
     "format": "prettier --write 'src/**/*.js'",
@@ -24,11 +24,10 @@
     "@babel/core": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-flow": "^7.16.7",
-    "flow-bin": "^0.171.0",
-    "flow-copy-source": "2.0.9",
     "@types/jest": "^28.1.1",
     "@types/lodash": "^4.14.182",
     "jest": "^27.4.7",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "typescript": "^4.7.3"
   }
 }
