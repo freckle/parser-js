@@ -1,6 +1,7 @@
 import forEach from 'lodash/forEach'
 
 import {
+  type ParserT,
   Parser,
   literal,
   string,
@@ -308,11 +309,12 @@ describe('Parser', () => {
       test('should short circuit when we commit early with tag()', () => {
         const x = record({tag: tag('x'), contents: number()})
         const y = {
+          type: 'parser',
           expected: 'unreachable',
           parse: () => {
             throw new Error('firstOf should have failed in x parser')
           }
-        }
+        } as ParserT<{}>
         parseSuccess({tag: 'x', contents: 3}, firstOf(x, y))
         parseFailure({tag: 'x', contents: 'x'}, firstOf(x, y))
       })
