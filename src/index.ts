@@ -46,9 +46,9 @@ type ParserBaseT<R> = {
 }
 
 // A ParserT can validate any object and describe the type of input on which it will succeed
- export type ParserT<R> = {
-   type: 'parser'
- } & ParserBaseT<R>
+export type ParserT<R> = {
+  type: 'parser'
+} & ParserBaseT<R>
 
 // A RenamerT is a ParserT that can select different fields in a record
 //
@@ -356,7 +356,10 @@ export function firstOf<R>(first: ParserT<R>, ...rest: Array<ParserT<R>>): Parse
           if (Parser.isFatal(lhs)) {
             return lhs
           }
-          return Either.alt(() => lhs, () => parser.parse(x, path))
+          return Either.alt(
+            () => lhs,
+            () => parser.parse(x, path)
+          )
         },
         first.parse(x, path)
       )
@@ -396,8 +399,8 @@ export function field<R>(parser: ParserT<R>, field: string): RenamerT<R> {
 function extractTagParser<
   S extends {[key: string]: unknown},
   T extends {
-   [P in keyof S]: RecordParserT<S[P]>
-   }
+    [P in keyof S]: RecordParserT<S[P]>
+  }
 >(
   parsers: T
 ): null | {
@@ -420,11 +423,11 @@ function extractTagParser<
 
 // Parser for records where each key has its own parser
 export function record<
-   T extends {
-     [P in keyof S]: RecordParserT<S[P]>
-   },
-   S extends {[key: string]: unknown} = {}
- >(parsers: T): ParserT<S> {
+  T extends {
+    [P in keyof S]: RecordParserT<S[P]>
+  },
+  S extends {[key: string]: unknown} = {}
+>(parsers: T): ParserT<S> {
   const keys = Object.keys(parsers).sort()
   const pairs = _map(keys, key => `${key}: ${parsers[key].expected}`)
   const expected = `record({${pairs.join(', ')}})`
@@ -475,8 +478,8 @@ export function record<
         (acc, key) => {
           return Either.liftA2(
             (result, parsed) => ({
-               ...result,
-               [key]: parsed
+              ...result,
+              [key]: parsed
             }),
             () => acc,
             () => {
@@ -486,7 +489,11 @@ export function record<
 
               return reduce(
                 rest,
-                (parsed, field) => Either.alt(() => parsed, () => parseOne(parser, key, field)),
+                (parsed, field) =>
+                  Either.alt(
+                    () => parsed,
+                    () => parseOne(parser, key, field)
+                  ),
                 parseOne(parser, first, first)
               )
             }
