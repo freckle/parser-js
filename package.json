@@ -1,6 +1,6 @@
 {
   "name": "@freckle/parser-js",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "One that parses",
   "main": "./dist/index.js",
   "repository": "https://github.com/freckle/parser-js.git",
