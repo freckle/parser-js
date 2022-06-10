@@ -10,6 +10,8 @@ import {type EitherT} from './either'
 import Either from './either'
 import {formatError} from './formatting'
 
+// This file has been updated! :-)
+
 // Recoverable errors mean we can try another parser in
 // firstOf. Fatal errors short circuit any operation.
 type LevelT = 'recoverable' | 'fatal'
