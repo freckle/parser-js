@@ -964,9 +964,9 @@
   dependencies:
     lodash "^4.17.21"
 
-"@freckle/non-empty-js@https://github.com/freckle/non-empty-js.git#v2.1.0":
-  version "2.1.0"
-  resolved "https://github.com/freckle/non-empty-js.git#468c222717a1ddb906c1b43273ff7ccf0aca629c"
+"@freckle/non-empty-js@https://github.com/freckle/non-empty-js.git#v2.1.1":
+  version "2.1.1"
+  resolved "https://github.com/freckle/non-empty-js.git#5f3b757dacbddec5c188e03ae518ca73b5317f4b"
   dependencies:
     "@freckle/maybe" "https://github.com/freckle/maybe-js.git#v2.1.0"
     lodash "4.17.21"
