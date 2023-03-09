@@ -1,6 +1,6 @@
 {
   "name": "@freckle/parser-js",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "One that parses",
   "main": "./dist/index.js",
   "repository": "https://github.com/freckle/parser-js.git",
@@ -17,7 +17,7 @@
     "@freckle/exhaustive-js": "https://github.com/freckle/exhaustive-js.git#v1.0.0",
     "@freckle/non-empty-js": "https://github.com/freckle/non-empty-js.git#v2.1.1",
     "lodash": "4.17.21",
-    "moment-timezone": "0.5.33"
+    "moment-timezone": "0.5.35"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.0",
