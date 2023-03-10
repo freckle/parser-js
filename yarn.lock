@@ -954,21 +954,24 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@freckle/exhaustive-js@https://github.com/freckle/exhaustive-js.git#v1.0.0":
-  version "1.0.0"
-  resolved "https://github.com/freckle/exhaustive-js.git#1480200972984ba530bb7d33ea83dee967391685"
+"@freckle/exhaustive@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@freckle/exhaustive/-/exhaustive-1.0.1.tgz#4a788ec7c0ea5bf09fd5f45692f825740b463345"
+  integrity sha512-teDjX9e73hVqXjh3aV+jmja18Q5xMei+8/hv2Cq6OhGIPAO6cAo/WzWG1zgB1KMjoEc8GOsdVGXZXcuI4fBOrQ==
 
-"@freckle/maybe@https://github.com/freckle/maybe-js.git#v2.1.0":
-  version "2.0.0"
-  resolved "https://github.com/freckle/maybe-js.git#deab1f020e54c644b0836d306b1a57bad9e620a9"
+"@freckle/maybe@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@freckle/maybe/-/maybe-2.1.0.tgz#ef3ab0cf5e7bdfc69f2d0a86ddd59a6c8397c6c8"
+  integrity sha512-WF6McGA11NoxgEO2gXaELPN1T1jY9p9IZUzmY1AJAtsZoVpyZns0vNNdUh60Z3Bp4hJhaThMtIcQjmU5fFTdvg==
   dependencies:
     lodash "^4.17.21"
 
-"@freckle/non-empty-js@https://github.com/freckle/non-empty-js.git#v2.1.1":
-  version "2.1.1"
-  resolved "https://github.com/freckle/non-empty-js.git#5f3b757dacbddec5c188e03ae518ca73b5317f4b"
+"@freckle/non-empty@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@freckle/non-empty/-/non-empty-2.1.2.tgz#ceb24d6f311e2bf60307dec2d8dc5152b80b0dcf"
+  integrity sha512-R5HUg4OG1opaDIorn3FgcoyE7zL9JyjM3czHUFsfCjjWqh+MzWhMprppLYQS+0NsEPfstovtWqUxy322nqQYtA==
   dependencies:
-    "@freckle/maybe" "https://github.com/freckle/maybe-js.git#v2.1.0"
+    "@freckle/maybe" "^2.1.0"
     lodash "4.17.21"
 
 "@istanbuljs/load-nyc-config@^1.0.0":

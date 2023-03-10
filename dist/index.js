@@ -8,7 +8,7 @@ const reduce_1 = __importDefault(require("lodash/reduce"));
 const map_1 = __importDefault(require("lodash/map")); // Underscored to avoid name clash
 const find_1 = __importDefault(require("lodash/find"));
 const moment_timezone_1 = __importDefault(require("moment-timezone"));
-const non_empty_js_1 = require("@freckle/non-empty-js");
+const non_empty_1 = require("@freckle/non-empty");
 const path_1 = __importDefault(require("./path"));
 const either_1 = __importDefault(require("./either"));
 const formatting_1 = require("./formatting");
@@ -285,7 +285,7 @@ exports.firstOf = firstOf;
 //
 function fields(parser, first, ...rest) {
     const { expected, parse } = parser;
-    const fields = (0, non_empty_js_1.mkNonEmptyFromHead)(first, rest);
+    const fields = (0, non_empty_1.mkNonEmptyFromHead)(first, rest);
     const expectedFields = (0, map_1.default)(fields, field => stringify(field)).join(', ');
     const prefix = rest.length === 0 ? 'field' : 'fields';
     return {
@@ -364,7 +364,7 @@ function record(parsers) {
             const result = (0, reduce_1.default)(keys, (acc, key) => {
                 return either_1.default.liftA2((result, parsed) => (Object.assign(Object.assign({}, result), { [key]: parsed })), () => acc, () => {
                     const parser = parsers[key];
-                    const [first, rest] = parser.type === 'renamer' ? (0, non_empty_js_1.unconsOnNonEmpty)(parser.fields) : [key, []];
+                    const [first, rest] = parser.type === 'renamer' ? (0, non_empty_1.unconsOnNonEmpty)(parser.fields) : [key, []];
                     return (0, reduce_1.default)(rest, (parsed, field) => either_1.default.alt(() => parsed, () => parseOne(parser, key, field)), parseOne(parser, first, first));
                 });
             }, exports.Parser.ok({}));

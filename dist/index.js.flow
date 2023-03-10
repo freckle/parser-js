@@ -4,7 +4,7 @@ import reduce from 'lodash/reduce'
 import _map from 'lodash/map' // Underscored to avoid name clash
 import find from 'lodash/find'
 import moment, {type Moment} from 'moment-timezone'
-import {type NonEmptyArray, mkNonEmptyFromHead, unconsOnNonEmpty} from '@freckle/non-empty-js'
+import {type NonEmptyArray, mkNonEmptyFromHead, unconsOnNonEmpty} from '@freckle/non-empty'
 
 import Path from './path.js'
 import {type PathT} from './path.js'

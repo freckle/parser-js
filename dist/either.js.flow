@@ -1,6 +1,6 @@
 /* @flow */
 
-import {exhaustive} from '@freckle/exhaustive-js'
+import {exhaustive} from '@freckle/exhaustive'
 
 // Represent one of two possible values. A value of EitherT<L, R> is _either_
 // a value of type L tagged with 'left' or a vaue of type R tagged with 'right'.

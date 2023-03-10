@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const map_1 = __importDefault(require("lodash/map"));
-const exhaustive_js_1 = require("@freckle/exhaustive-js");
+const exhaustive_1 = require("@freckle/exhaustive");
 const Path = {
     root() {
         return [];
@@ -30,7 +30,7 @@ const Path = {
                 case 'key':
                     return component.key;
                 default:
-                    return (0, exhaustive_js_1.exhaustive)(component, 'PathComponentT');
+                    return (0, exhaustive_1.exhaustive)(component, 'PathComponentT');
             }
         });
         return strings.length === 0 ? null : strings.join('.');

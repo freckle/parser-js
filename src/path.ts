@@ -1,6 +1,6 @@
 import map from 'lodash/map'
 
-import {exhaustive} from '@freckle/exhaustive-js'
+import {exhaustive} from '@freckle/exhaustive'
 
 // Represent components of a path into an object or array
 type PathComponentT =

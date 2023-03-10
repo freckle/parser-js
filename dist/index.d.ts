@@ -1,5 +1,5 @@
 import { type Moment } from 'moment-timezone';
-import { type NonEmptyArray } from '@freckle/non-empty-js';
+import { type NonEmptyArray } from '@freckle/non-empty';
 import { type PathT } from './path';
 import { type EitherT } from './either';
 export { saferStringify } from './formatting';

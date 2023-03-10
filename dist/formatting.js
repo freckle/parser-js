@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.saferStringify = exports.formatError = void 0;
 const times_1 = __importDefault(require("lodash/times"));
 const maybe_1 = require("@freckle/maybe");
-const exhaustive_js_1 = require("@freckle/exhaustive-js");
+const exhaustive_1 = require("@freckle/exhaustive");
 const path_1 = __importDefault(require("./path"));
 // Format an ErrorStackT into a human-readable message
 //
@@ -76,7 +76,7 @@ function formatError(root) {
                 return walk(next, [...newLines, ...lines]);
             }
             default:
-                return (0, exhaustive_js_1.exhaustive)(node, 'ErrorStackT');
+                return (0, exhaustive_1.exhaustive)(node, 'ErrorStackT');
         }
     }
     return walk(root, []).join('\n');

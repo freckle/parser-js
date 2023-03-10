@@ -1,7 +1,7 @@
 import times from 'lodash/times'
 
 import {mapMaybes} from '@freckle/maybe'
-import {exhaustive} from '@freckle/exhaustive-js'
+import {exhaustive} from '@freckle/exhaustive'
 
 import Path from './path'
 

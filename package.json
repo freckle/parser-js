@@ -1,6 +1,6 @@
 {
-  "name": "@freckle/parser-js",
-  "version": "1.3.2",
+  "name": "@freckle/parser",
+  "version": "1.3.3",
   "description": "One that parses",
   "main": "./dist/index.js",
   "repository": "https://github.com/freckle/parser-js.git",
@@ -14,8 +14,8 @@
     "check-git-clean": "./check-git-clean.sh"
   },
   "dependencies": {
-    "@freckle/exhaustive-js": "https://github.com/freckle/exhaustive-js.git#v1.0.0",
-    "@freckle/non-empty-js": "https://github.com/freckle/non-empty-js.git#v2.1.1",
+    "@freckle/exhaustive": "^1.0.1",
+    "@freckle/non-empty": "^2.1.2",
     "lodash": "4.17.21",
     "moment-timezone": "0.5.35"
   },
