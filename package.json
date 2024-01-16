@@ -7,9 +7,8 @@
   "author": "Freckle",
   "license": "MIT",
   "scripts": {
-    "build": "tsc -d && yarn copy:lib",
-    "copy:lib": "cpy '**/*.flow' ../dist --cwd=lib --parents",
-    "test": "jest && flow",
+    "build": "tsc -d",
+    "test": "jest",
     "format": "prettier --write 'src/**/*.js'",
     "check-git-clean": "./check-git-clean.sh"
   },
@@ -23,11 +22,8 @@
     "@babel/cli": "^7.17.0",
     "@babel/core": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
-    "@babel/preset-flow": "^7.16.7",
     "@types/jest": "^28.1.1",
     "@types/lodash": "^4.14.182",
-    "cpy-cli": "3.1.1",
-    "flow-bin": "0.110.0",
     "jest": "^27.4.7",
     "prettier": "^2.5.1",
     "ts-jest": "^28.0.4",
