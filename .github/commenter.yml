@@ -5,6 +5,5 @@ PRChecklist:
   body: |
     **PR checklist**
 
-    - [ ] Flow interfaces in `lib/` have been updated to reflect changes in `.d.ts` interfaces, if any.
     - [ ] Version in `package.json` is updated according to semver policy.
     - [ ] Built `dist/` reflects all changes in PR prior to merge.
