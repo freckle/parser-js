@@ -2,7 +2,12 @@ import reduce from 'lodash/reduce'
 import _map from 'lodash/map' // Underscored to avoid name clash
 import find from 'lodash/find'
 import moment, {type Moment} from 'moment-timezone'
-import {type NonEmptyArray, mkNonEmpty, mkNonEmptyFromHead, unconsOnNonEmpty} from '@freckle/non-empty'
+import {
+  type NonEmptyArray,
+  mkNonEmpty,
+  mkNonEmptyFromHead,
+  unconsOnNonEmpty
+} from '@freckle/non-empty'
 
 import Path from './path'
 import {type PathT} from './path'
