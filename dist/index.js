@@ -201,7 +201,11 @@ function nonEmptyArray(parser) {
             if (!Array.isArray(xs) || xs.length === 0) {
                 return exports.Parser.fail({ expected, got: xs });
             }
-            return collect(parser, xs, { path, expected });
+            const parsed = (0, non_empty_1.mkNonEmpty)(xs);
+            if (parsed === null) {
+                return exports.Parser.fail({ expected, got: xs });
+            }
+            return collect(parser, parsed, { path, expected });
         }
     };
 }

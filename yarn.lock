@@ -1339,13 +1339,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@freckle/non-empty@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "@freckle/non-empty@npm:2.1.2"
+"@freckle/non-empty@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@freckle/non-empty@npm:3.0.0"
   dependencies:
     "@freckle/maybe": "npm:^2.1.0"
     lodash: "npm:4.17.21"
-  checksum: de332f6beb436a3f111c74dace86506e66af6423e4b69bf9c031880c034e4a378e071a0e4c32b89a1f04668e12a5507449e15b9b8f1eced42681d7a1b37cf712
+  checksum: 942f2f307bc8f4e6a87565c87c53b1fccd1340eb6068f197915230892fb5bac86b5ca6d868e034c26cd479349024eb7f7b504e787c838931255978cdc752a9fe
   languageName: node
   linkType: hard
 
@@ -1357,7 +1357,7 @@ __metadata:
     "@babel/core": "npm:^7.17.0"
     "@babel/preset-env": "npm:^7.16.11"
     "@freckle/exhaustive": "npm:^1.0.1"
-    "@freckle/non-empty": "npm:^2.1.2"
+    "@freckle/non-empty": "npm:^3.0.0"
     "@types/jest": "npm:^28.1.1"
     "@types/lodash": "npm:^4.14.182"
     jest: "npm:^27.4.7"
