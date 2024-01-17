@@ -2,7 +2,7 @@ import reduce from 'lodash/reduce'
 import _map from 'lodash/map' // Underscored to avoid name clash
 import find from 'lodash/find'
 import moment, {type Moment} from 'moment-timezone'
-import {type NonEmptyArray, mkNonEmptyFromHead, unconsOnNonEmpty} from '@freckle/non-empty'
+import {type NonEmptyArray, mkNonEmpty, mkNonEmptyFromHead, unconsOnNonEmpty} from '@freckle/non-empty'
 
 import Path from './path'
 import {type PathT} from './path'
@@ -280,7 +280,13 @@ export function nonEmptyArray<R>(parser: ParserT<R>): ParserT<NonEmptyArray<R>> 
       if (!Array.isArray(xs) || xs.length === 0) {
         return Parser.fail({expected, got: xs})
       }
-      return collect(parser, xs, {path, expected})
+
+      const parsed = mkNonEmpty(xs)
+      if (parsed === null) {
+        return Parser.fail({expected, got: xs})
+      }
+
+      return collect(parser, parsed, {path, expected}) as ParseResultT<NonEmptyArray<R>>
     }
   }
 }
