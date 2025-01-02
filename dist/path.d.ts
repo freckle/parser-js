@@ -1,11 +1,11 @@
-declare type PathComponentT = {
+type PathComponentT = {
     tag: 'index';
     index: number;
 } | {
     tag: 'key';
     key: string;
 };
-export declare type PathT = Array<PathComponentT>;
+export type PathT = Array<PathComponentT>;
 declare const Path: {
     root(): PathT;
     skip(): PathT;

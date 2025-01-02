@@ -3,7 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseFailure = exports.parseSuccess = exports.parseExpect = void 0;
+exports.parseExpect = parseExpect;
+exports.parseSuccess = parseSuccess;
+exports.parseFailure = parseFailure;
 const identity_1 = __importDefault(require("lodash/identity"));
 const _1 = require(".");
 // Set true to see parse results
@@ -37,14 +39,11 @@ function parseExpect(expected, value, parser) {
     }
     expect(_1.Parser.runInternal(value, parser, identity_1.default, die)).toEqual(expected);
 }
-exports.parseExpect = parseExpect;
 // Expect parse to succeed
 function parseSuccess(value, parser) {
     expect(_1.Parser.runInternal(value, parser, expectSuccess(true), expectFailure(false))).toEqual(true);
 }
-exports.parseSuccess = parseSuccess;
 // Expect parse to fail
 function parseFailure(value, parser) {
     expect(_1.Parser.runInternal(value, parser, expectSuccess(false), expectFailure(true))).toEqual(true);
 }
-exports.parseFailure = parseFailure;
