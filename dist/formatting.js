@@ -3,7 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.saferStringify = exports.formatError = void 0;
+exports.formatError = formatError;
+exports.saferStringify = saferStringify;
 const times_1 = __importDefault(require("lodash/times"));
 const maybe_1 = require("@freckle/maybe");
 const exhaustive_1 = require("@freckle/exhaustive");
@@ -81,7 +82,6 @@ function formatError(root) {
     }
     return walk(root, []).join('\n');
 }
-exports.formatError = formatError;
 function formatWithType(root) {
     return [indent(2, saferStringify(root)), ...formatType(root)];
 }
@@ -150,7 +150,6 @@ function saferStringify(root) {
         throw e;
     }
 }
-exports.saferStringify = saferStringify;
 // Indent string n spaces
 function indent(n, text) {
     return `${(0, times_1.default)(n, () => ' ').join('')}${text}`;
