@@ -3,7 +3,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Parser = exports.obfuscated = exports.map = exports.mapStatic = exports.merge = exports.stringMap = exports.record = exports.field = exports.fields = exports.firstOf = exports.oneOf = exports.stringEnum = exports.date = exports.nonEmptyArray = exports.array = exports.nullableDefined = exports.nullable = exports.nullableDefault = exports.boolean = exports.fixed = exports.rounded = exports.number = exports.stringInt = exports.string = exports.any = exports.pure = exports.typeOf = exports.literal = exports.onSelf = exports.tag = exports.parseFailure = exports.parseSuccess = exports.parseExpect = exports.saferStringify = void 0;
+exports.Parser = exports.parseFailure = exports.parseSuccess = exports.parseExpect = exports.saferStringify = void 0;
+exports.tag = tag;
+exports.onSelf = onSelf;
+exports.literal = literal;
+exports.typeOf = typeOf;
+exports.pure = pure;
+exports.any = any;
+exports.string = string;
+exports.stringInt = stringInt;
+exports.number = number;
+exports.rounded = rounded;
+exports.fixed = fixed;
+exports.boolean = boolean;
+exports.nullableDefault = nullableDefault;
+exports.nullable = nullable;
+exports.nullableDefined = nullableDefined;
+exports.array = array;
+exports.nonEmptyArray = nonEmptyArray;
+exports.date = date;
+exports.stringEnum = stringEnum;
+exports.oneOf = oneOf;
+exports.firstOf = firstOf;
+exports.fields = fields;
+exports.field = field;
+exports.record = record;
+exports.stringMap = stringMap;
+exports.merge = merge;
+exports.mapStatic = mapStatic;
+exports.map = map;
+exports.obfuscated = obfuscated;
 const reduce_1 = __importDefault(require("lodash/reduce"));
 const map_1 = __importDefault(require("lodash/map")); // Underscored to avoid name clash
 const find_1 = __importDefault(require("lodash/find"));
@@ -37,7 +66,6 @@ function tag(value) {
         }
     };
 }
-exports.tag = tag;
 function onSelf(parser) {
     const { parse } = parser;
     const expected = `onSelf(${parser.expected})`;
@@ -47,7 +75,6 @@ function onSelf(parser) {
         parse
     };
 }
-exports.onSelf = onSelf;
 // Parser that uses equality to decode a literal value
 //
 // Prefer using tag when the literal is used in a discriminated union
@@ -61,7 +88,6 @@ function literal(value) {
         }
     };
 }
-exports.literal = literal;
 // Parser that uses `typeof`
 function typeOf(ty) {
     const expected = `typeOf(${stringify(ty)})`;
@@ -73,7 +99,6 @@ function typeOf(ty) {
         }
     };
 }
-exports.typeOf = typeOf;
 // Lift a pure value into a ParserT
 function pure(a) {
     const expected = `pure(${stringify(a)})`;
@@ -83,7 +108,6 @@ function pure(a) {
         parse: _ => exports.Parser.ok(a)
     };
 }
-exports.pure = pure;
 // Parser for any
 function any() {
     return {
@@ -92,12 +116,10 @@ function any() {
         parse: exports.Parser.ok
     };
 }
-exports.any = any;
 // Parser for strings
 function string() {
     return typeOf('string');
 }
-exports.string = string;
 // Parser for int as a string
 function stringInt() {
     const expected = 'stringInt()';
@@ -110,27 +132,22 @@ function stringInt() {
         }
     };
 }
-exports.stringInt = stringInt;
 // Parser for numbers
 function number() {
     return typeOf('number');
 }
-exports.number = number;
 // Parser for rounded numbers
 function rounded() {
     return exports.Parser.map(number(), 'round', x => Math.round(x));
 }
-exports.rounded = rounded;
 // Parser for fixed numbers
 function fixed(digits) {
     return exports.Parser.map(number(), 'fixed', x => parseFloat(x.toFixed(digits)));
 }
-exports.fixed = fixed;
 // Parser for booleans
 function boolean() {
     return typeOf('boolean');
 }
-exports.boolean = boolean;
 // Build parser that returns a default when encountering null or undefined
 function withDefault(parser, def, expected) {
     return {
@@ -149,19 +166,16 @@ function nullableDefault(parser, def) {
     const expected = `nullableDefault(${parser.expected}, ${stringify(def)})`;
     return withDefault(parser, def, expected);
 }
-exports.nullableDefault = nullableDefault;
 // Parser for nullable values
 function nullable(parser) {
     const expected = `nullable(${parser.expected})`;
     return withDefault(parser, null, expected);
 }
-exports.nullable = nullable;
 // Parser for nullable values that are never undefined after parsing
 function nullableDefined(parser) {
     const expected = `nullableDefined(${parser.expected})`;
     return withDefault(parser, null, expected);
 }
-exports.nullableDefined = nullableDefined;
 function collect(parser, xs, args) {
     const { path, expected } = args;
     // Intentionally using mutation below
@@ -190,7 +204,6 @@ function array(parser) {
         }
     };
 }
-exports.array = array;
 // Parser for non-empty arrays
 function nonEmptyArray(parser) {
     const expected = `nonEmptyArray(${parser.expected})`;
@@ -209,7 +222,6 @@ function nonEmptyArray(parser) {
         }
     };
 }
-exports.nonEmptyArray = nonEmptyArray;
 // Parser for dates represented as moments
 function date() {
     const expected = 'date()';
@@ -228,7 +240,6 @@ function date() {
         }
     };
 }
-exports.date = date;
 // Parser for enums given a parsing function
 function stringEnum(name, parse) {
     // Ignore parse function in expected since name should be enough to
@@ -249,7 +260,6 @@ function stringEnum(name, parse) {
         }
     };
 }
-exports.stringEnum = stringEnum;
 // Simple parser for string enumerations
 //
 // For example:
@@ -259,7 +269,6 @@ exports.stringEnum = stringEnum;
 function oneOf(name, all) {
     return stringEnum(name, (text) => (0, find_1.default)(all, value => value === text));
 }
-exports.oneOf = oneOf;
 // Parser that succeeds if any of its arguments succeeds
 //
 // Fatal errors do short circuit. Currently, these are only produced by using the
@@ -280,7 +289,6 @@ function firstOf(first, ...rest) {
         }
     };
 }
-exports.firstOf = firstOf;
 // Parser for selecting different fields than the output field. Fields are tried in order
 //
 // e.g. The following selects the 'id' or 'ID' field but writes it to the 'uuid' field in the output
@@ -299,7 +307,6 @@ function fields(parser, first, ...rest) {
         parse
     };
 }
-exports.fields = fields;
 // Convenient alias for fields when given a single field
 //
 // e.g. The following selects the 'id' field but writes it to the 'uuid' field in the output
@@ -309,7 +316,6 @@ exports.fields = fields;
 function field(parser, field) {
     return fields(parser, field);
 }
-exports.field = field;
 function extractTagParser(parsers) {
     let result = null;
     for (const [key, parser] of Object.entries(parsers)) {
@@ -377,7 +383,6 @@ function record(parsers) {
         }
     };
 }
-exports.record = record;
 // Parser for records with arbitrary string keys, but homogenous values
 function stringMap(parser) {
     const expected = `stringMap(${parser.expected})`;
@@ -402,7 +407,6 @@ function stringMap(parser) {
         }
     };
 }
-exports.stringMap = stringMap;
 // Merge two record parsers to parse one object with the union of their keys
 function merge(lhs, rhs) {
     const expected = `merge(${lhs.expected}, ${rhs.expected})`;
@@ -414,7 +418,6 @@ function merge(lhs, rhs) {
         }
     };
 }
-exports.merge = merge;
 // Apply a function to the result of a parser if it succeeds
 //
 // Uses the function's name as part of the expected value, so only use
@@ -425,7 +428,6 @@ function mapStatic(parser, f) {
     const expected = `mapStatic(${parser.expected}, ${f.name || f.toString()})`;
     return mapInternal(parser, expected, f);
 }
-exports.mapStatic = mapStatic;
 // Apply a function to the result of a parser if it succeeds
 //
 // Second argument should adequately identify the function's behavior
@@ -436,7 +438,6 @@ function map(parser, name, f) {
     const expected = `map(${parser.expected}, ${name}, _)`;
     return mapInternal(parser, expected, f);
 }
-exports.map = map;
 function mapInternal(parser, expected, f) {
     return {
         type: 'parser',
@@ -465,7 +466,6 @@ function obfuscated(parser) {
         })
     };
 }
-exports.obfuscated = obfuscated;
 exports.Parser = {
     // Smart constructor for a successful parse
     ok(result) {

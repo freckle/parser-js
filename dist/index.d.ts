@@ -4,8 +4,8 @@ import { type PathT } from './path';
 import { type EitherT } from './either';
 export { saferStringify } from './formatting';
 export { parseExpect, parseSuccess, parseFailure } from './test-helper';
-declare type LevelT = 'recoverable' | 'fatal';
-export declare type ErrorStackT = {
+type LevelT = 'recoverable' | 'fatal';
+export type ErrorStackT = {
     tag: 'fail';
     expected: string;
     got: any;
@@ -17,25 +17,25 @@ export declare type ErrorStackT = {
     input?: any;
     next: ErrorStackT;
 };
-export declare type ParseResultT<R> = EitherT<ErrorStackT, R>;
-declare type ParserBaseT<R> = {
+export type ParseResultT<R> = EitherT<ErrorStackT, R>;
+type ParserBaseT<R> = {
     parse: (x: any, path: PathT) => ParseResultT<R>;
     expected: string;
 };
-export declare type ParserT<R> = {
+export type ParserT<R> = {
     type: 'parser';
 } & ParserBaseT<R>;
-export declare type RenamerT<R> = {
+export type RenamerT<R> = {
     type: 'renamer';
     fields: NonEmptyArray<string>;
 } & ParserBaseT<R>;
-export declare type TagParserT<R> = {
+export type TagParserT<R> = {
     type: 'tag';
 } & ParserBaseT<R>;
-export declare type SelfParserT<R> = {
+export type SelfParserT<R> = {
     type: 'self';
 } & ParserBaseT<R>;
-export declare type RecordParserT<R> = ParserT<R> | RenamerT<R> | TagParserT<R> | SelfParserT<R>;
+export type RecordParserT<R> = ParserT<R> | RenamerT<R> | TagParserT<R> | SelfParserT<R>;
 interface HasToString {
     toString(): string;
 }
@@ -74,18 +74,18 @@ export declare function map<A, B>(parser: ParserT<A>, name: string, f: (a: A) =>
 export declare function obfuscated<R>(parser: ParserT<R>): ParserT<R>;
 export declare const Parser: {
     ok<R>(result: R): ParseResultT<R>;
-    fail<R_1>(obj: {
+    fail<R>(obj: {
         expected: string;
         got: any;
-    }): ParseResultT<R_1>;
-    commit<R_2>(parsed: ParseResultT<R_2>): ParseResultT<R_2>;
-    isFatal<R_3>(parsed: ParseResultT<R_3>): boolean;
-    context<R_4>(args: {
+    }): ParseResultT<R>;
+    commit<R>(parsed: ParseResultT<R>): ParseResultT<R>;
+    isFatal<R>(parsed: ParseResultT<R>): boolean;
+    context<R>(args: {
         input?: any;
         level?: LevelT;
         element?: PathT;
         expected: string;
-    }, parsed: ParseResultT<R_4>): ParseResultT<R_4>;
+    }, parsed: ParseResultT<R>): ParseResultT<R>;
     typeOf: typeof typeOf;
     literal: typeof literal;
     string: typeof string;
@@ -110,7 +110,7 @@ export declare const Parser: {
     merge: typeof merge;
     map: typeof map;
     mapStatic: typeof mapStatic;
-    runInternal<R_5, X>(value: any, parser: ParserT<R_5>, onSuccess: (result: R_5) => X, onError: (error: string) => X): X;
-    run<R_6>(value: any, parser: ParserT<R_6>): R_6;
-    mkRun<R_7>(parser: ParserT<R_7>): (value: any) => R_7;
+    runInternal<R, X>(value: any, parser: ParserT<R>, onSuccess: (result: R) => X, onError: (error: string) => X): X;
+    run<R>(value: any, parser: ParserT<R>): R;
+    mkRun<R>(parser: ParserT<R>): (value: any) => R;
 };

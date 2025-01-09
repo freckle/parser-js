@@ -1,4 +1,4 @@
-export declare type EitherT<L, R> = {
+export type EitherT<L, R> = {
     tag: 'left';
     left: L;
 } | {
@@ -7,17 +7,17 @@ export declare type EitherT<L, R> = {
 };
 declare const Either: {
     Left<L, R>(left: L): EitherT<L, R>;
-    Right<L_1, R_1>(right: R_1): EitherT<L_1, R_1>;
-    match<L_2, R_2, T>(e: EitherT<L_2, R_2>, branches: {
-        left: (left: L_2) => T;
-        right: (right: R_2) => T;
+    Right<L, R>(right: R): EitherT<L, R>;
+    match<L, R, T>(e: EitherT<L, R>, branches: {
+        left: (left: L) => T;
+        right: (right: R) => T;
     }): T;
-    pure<L_3, R_3>(x: R_3): EitherT<L_3, R_3>;
-    fail<L_4, R_4>(x: L_4): EitherT<L_4, R_4>;
-    map<L_5, R_5, S>(f: (x: R_5) => S, e: EitherT<L_5, R_5>): EitherT<L_5, S>;
-    liftA2<L_6, R_6, S_1, T_1>(f: (r: R_6, s: S_1) => T_1, a: () => EitherT<L_6, R_6>, b: () => EitherT<L_6, S_1>): EitherT<L_6, T_1>;
-    bimap<L_7, M, R_7, S_2>(f: (x: L_7) => M, g: (x: R_7) => S_2, e: EitherT<L_7, R_7>): EitherT<M, S_2>;
-    bind<L_8, R_8, S_3>(e: EitherT<L_8, R_8>, k: (x: R_8) => EitherT<L_8, S_3>): EitherT<L_8, S_3>;
-    alt<L_9, R_9>(lhs: () => EitherT<L_9, R_9>, rhs: () => EitherT<L_9, R_9>): EitherT<L_9, R_9>;
+    pure<L, R>(x: R): EitherT<L, R>;
+    fail<L, R>(x: L): EitherT<L, R>;
+    map<L, R, S>(f: (x: R) => S, e: EitherT<L, R>): EitherT<L, S>;
+    liftA2<L, R, S, T>(f: (r: R, s: S) => T, a: () => EitherT<L, R>, b: () => EitherT<L, S>): EitherT<L, T>;
+    bimap<L, M, R, S>(f: (x: L) => M, g: (x: R) => S, e: EitherT<L, R>): EitherT<M, S>;
+    bind<L, R, S>(e: EitherT<L, R>, k: (x: R) => EitherT<L, S>): EitherT<L, S>;
+    alt<L, R>(lhs: () => EitherT<L, R>, rhs: () => EitherT<L, R>): EitherT<L, R>;
 };
 export default Either;
