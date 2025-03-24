@@ -16,7 +16,7 @@
     "@freckle/exhaustive": "^1.0.1",
     "@freckle/non-empty": "^3.0.0",
     "lodash": "4.17.21",
-    "moment-timezone": "0.5.47"
+    "moment-timezone": "0.5.48"
   },
   "devDependencies": {
     "@babel/cli": "^7.26.4",
