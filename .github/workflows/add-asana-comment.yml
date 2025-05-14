@@ -5,6 +5,7 @@ permissions:
 
 on:
   pull_request:
+    types: [opened]
 
 jobs:
   link-asana-task:
