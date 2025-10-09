@@ -24,8 +24,8 @@
     "@babel/preset-env": "^7.28.3",
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.20",
-    "jest": "^30.0.0",
-    "jest-environment-jsdom": "^30.0.0",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
     "prettier": "^3.6.2",
     "ts-jest": "^29.4.4",
     "typescript": "^5.9.3"

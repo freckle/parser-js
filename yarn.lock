@@ -1851,8 +1851,8 @@ __metadata:
     "@freckle/non-empty": "npm:^3.0.0"
     "@types/jest": "npm:^30.0.0"
     "@types/lodash": "npm:^4.17.20"
-    jest: "npm:^30.0.0"
-    jest-environment-jsdom: "npm:^30.0.0"
+    jest: "npm:^30.0.5"
+    jest-environment-jsdom: "npm:^30.0.5"
     lodash: "npm:4.17.21"
     moment-timezone: "npm:0.6.0"
     prettier: "npm:^3.6.2"
@@ -4208,7 +4208,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-environment-jsdom@npm:^30.0.0":
+"jest-environment-jsdom@npm:^30.0.5":
   version: 30.2.0
   resolution: "jest-environment-jsdom@npm:30.2.0"
   dependencies:
@@ -4565,7 +4565,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^30.0.0":
+"jest@npm:^30.0.5":
   version: 30.2.0
   resolution: "jest@npm:30.2.0"
   dependencies:
