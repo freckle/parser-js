@@ -86,7 +86,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.23.9, @babel/core@npm:^7.26.10, @babel/core@npm:^7.27.4":
+"@babel/core@npm:^7.23.9, @babel/core@npm:^7.27.4, @babel/core@npm:^7.28.4":
   version: 7.28.4
   resolution: "@babel/core@npm:7.28.4"
   dependencies:
@@ -1459,7 +1459,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-env@npm:^7.26.9":
+"@babel/preset-env@npm:^7.28.3":
   version: 7.28.3
   resolution: "@babel/preset-env@npm:7.28.3"
   dependencies:
@@ -1845,8 +1845,8 @@ __metadata:
   resolution: "@freckle/parser@workspace:."
   dependencies:
     "@babel/cli": "npm:^7.28.3"
-    "@babel/core": "npm:^7.26.10"
-    "@babel/preset-env": "npm:^7.26.9"
+    "@babel/core": "npm:^7.28.4"
+    "@babel/preset-env": "npm:^7.28.3"
     "@freckle/exhaustive": "npm:^1.0.1"
     "@freckle/non-empty": "npm:^3.0.0"
     "@types/jest": "npm:^30.0.0"
