@@ -8,27 +8,23 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -d",
-    "test": "jest",
+    "test": "vitest run",
     "format": "prettier --write 'src/**/*.js'",
     "check-git-clean": "./check-git-clean.sh"
   },
   "dependencies": {
     "@freckle/exhaustive": "^1.0.1",
+    "@freckle/maybe": "^2.2.0",
     "@freckle/non-empty": "^3.0.0",
     "lodash": "4.17.23",
     "moment-timezone": "0.6.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.6",
-    "@babel/core": "^7.29.0",
-    "@babel/preset-env": "^7.29.2",
-    "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.24",
-    "jest": "^30.3.0",
-    "jest-environment-jsdom": "^30.3.0",
+    "jsdom": "^26.1.0",
     "prettier": "^3.8.1",
-    "ts-jest": "^29.4.6",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
   },
-  "packageManager": "yarn@4.13.0"
+  "packageManager": "pnpm@10.8.0"
 }
