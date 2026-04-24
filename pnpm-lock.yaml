@@ -12,8 +12,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0
       '@freckle/maybe':
-        specifier: ^2.2.0
-        version: 2.2.0
+        specifier: ^2.3.0
+        version: 2.3.0
       '@freckle/non-empty':
         specifier: ^3.0.0
         version: 3.0.0
@@ -261,8 +261,8 @@ packages:
   '@freckle/exhaustive@1.1.0':
     resolution: {integrity: sha512-YX2jQGptML1vM3K7k1o9VUb9yOsLkX4Nv8MjD3zbtLijtLQ+H5nBIhswiFjaupbUNMUtV0C0GRSG+oeZmB/p6A==}
 
-  '@freckle/maybe@2.2.0':
-    resolution: {integrity: sha512-fwsANtzHafJk+UI4BMvp3J5hJNaaluaLXb7TJ0AqUY3HTU4Z+Gtpit1XcuYTV+ao73ykqhgmiq8xFLx4ygBIQg==}
+  '@freckle/maybe@2.3.0':
+    resolution: {integrity: sha512-I+qNU+CUEQORuKXUK35W2SMLU9KU5j+EgneJw84fe/sJyIvitDD0zfSWCaTnkWGQTl5IFJS8l3WGSGQtsAikiQ==}
 
   '@freckle/non-empty@3.0.0':
     resolution: {integrity: sha512-U81oCTw9kNZo29an7qEew4ro0VqHbEiwivm57CJMHvFKUomWrtmTew6kJY1SoVJqWde2AChpBucy+TVFWfkwoA==}
@@ -887,13 +887,13 @@ snapshots:
 
   '@freckle/exhaustive@1.1.0': {}
 
-  '@freckle/maybe@2.2.0':
+  '@freckle/maybe@2.3.0':
     dependencies:
       lodash: 4.18.1
 
   '@freckle/non-empty@3.0.0':
     dependencies:
-      '@freckle/maybe': 2.2.0
+      '@freckle/maybe': 2.3.0
       lodash: 4.17.21
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
