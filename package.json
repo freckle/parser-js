@@ -13,7 +13,7 @@
     "check-git-clean": "./check-git-clean.sh"
   },
   "dependencies": {
-    "@freckle/exhaustive": "^1.0.1",
+    "@freckle/exhaustive": "^1.1.0",
     "@freckle/maybe": "^2.2.0",
     "@freckle/non-empty": "^3.0.0",
     "lodash": "4.18.1",
