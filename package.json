@@ -15,7 +15,7 @@
   "dependencies": {
     "@freckle/exhaustive": "^1.1.0",
     "@freckle/maybe": "^2.3.0",
-    "@freckle/non-empty": "^3.0.0",
+    "@freckle/non-empty": "^4.0.1",
     "lodash": "4.18.1",
     "moment-timezone": "0.6.2"
   },
