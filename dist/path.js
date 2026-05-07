@@ -1,10 +1,5 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const map_1 = __importDefault(require("lodash/map"));
-const exhaustive_1 = require("@freckle/exhaustive");
+import { map } from 'lodash';
+import { exhaustive } from '@freckle/exhaustive';
 const Path = {
     root() {
         return [];
@@ -23,17 +18,17 @@ const Path = {
     },
     // Convert a Path into a string representation
     join(path) {
-        const strings = (0, map_1.default)(path, component => {
+        const strings = map(path, component => {
             switch (component.tag) {
                 case 'index':
                     return component.index.toString();
                 case 'key':
                     return component.key;
                 default:
-                    return (0, exhaustive_1.exhaustive)(component, 'PathComponentT');
+                    return exhaustive(component, 'PathComponentT');
             }
         });
         return strings.length === 0 ? null : strings.join('.');
     }
 };
-exports.default = Path;
+export default Path;

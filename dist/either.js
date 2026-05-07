@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const exhaustive_1 = require("@freckle/exhaustive");
+import { exhaustive } from '@freckle/exhaustive';
 const Either = {
     // Construct a value with the 'left' tag
     Left(left) {
@@ -19,7 +17,7 @@ const Either = {
             case 'right':
                 return branches.right(e.right);
             default:
-                return (0, exhaustive_1.exhaustive)(e, 'EitherT');
+                return exhaustive(e, 'EitherT');
         }
     },
     // Wrap a pure value in EitherT by tagging it with 'right'
@@ -63,4 +61,4 @@ const Either = {
         });
     }
 };
-exports.default = Either;
+export default Either;
