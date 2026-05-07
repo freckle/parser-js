@@ -1,13 +1,5 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseExpect = parseExpect;
-exports.parseSuccess = parseSuccess;
-exports.parseFailure = parseFailure;
-const identity_1 = __importDefault(require("lodash/identity"));
-const _1 = require(".");
+import { identity } from 'lodash';
+import { Parser } from './index.js';
 // Set true to see parse results
 const verbose = false;
 function expectSuccess(expected) {
@@ -29,7 +21,7 @@ function expectFailure(expected) {
     };
 }
 // Expect parse to succeed and return specified value
-function parseExpect(expected, value, parser) {
+export function parseExpect(expected, value, parser) {
     function die(error) {
         if (verbose) {
             console.log(error);
@@ -37,13 +29,13 @@ function parseExpect(expected, value, parser) {
         // Extra newline defeats jest's dumb error formatting
         throw new Error(`\n${error}`);
     }
-    expect(_1.Parser.runInternal(value, parser, identity_1.default, die)).toEqual(expected);
+    expect(Parser.runInternal(value, parser, identity, die)).toEqual(expected);
 }
 // Expect parse to succeed
-function parseSuccess(value, parser) {
-    expect(_1.Parser.runInternal(value, parser, expectSuccess(true), expectFailure(false))).toEqual(true);
+export function parseSuccess(value, parser) {
+    expect(Parser.runInternal(value, parser, expectSuccess(true), expectFailure(false))).toEqual(true);
 }
 // Expect parse to fail
-function parseFailure(value, parser) {
-    expect(_1.Parser.runInternal(value, parser, expectSuccess(false), expectFailure(true))).toEqual(true);
+export function parseFailure(value, parser) {
+    expect(Parser.runInternal(value, parser, expectSuccess(false), expectFailure(true))).toEqual(true);
 }

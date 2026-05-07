@@ -1,9 +1,9 @@
 import { type Moment } from 'moment-timezone';
 import { type NonEmptyArray } from '@freckle/non-empty';
-import { type PathT } from './path';
-import { type EitherT } from './either';
-export { saferStringify } from './formatting';
-export { parseExpect, parseSuccess, parseFailure } from './test-helper';
+import { type PathT } from './path.js';
+import { type EitherT } from './either.js';
+export { saferStringify } from './formatting.js';
+export { parseExpect, parseSuccess, parseFailure } from './test-helper.js';
 type LevelT = 'recoverable' | 'fatal';
 export type ErrorStackT = {
     tag: 'fail';

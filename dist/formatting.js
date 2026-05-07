@@ -1,14 +1,7 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatError = formatError;
-exports.saferStringify = saferStringify;
-const times_1 = __importDefault(require("lodash/times"));
-const maybe_1 = require("@freckle/maybe");
-const exhaustive_1 = require("@freckle/exhaustive");
-const path_1 = __importDefault(require("./path"));
+import { times } from 'lodash';
+import { mapMaybes } from '@freckle/maybe';
+import { exhaustive } from '@freckle/exhaustive';
+import Path from './path.js';
 // Format an ErrorStackT into a human-readable message
 //
 // For example, the following ErrorStackT:
@@ -50,7 +43,7 @@ const path_1 = __importDefault(require("./path"));
 // The top of the error message applies to the deepest part of the
 // data structure. Further down, we provide more context about where
 // the error occurred.
-function formatError(root) {
+export function formatError(root) {
     function walk(node, lines) {
         switch (node.tag) {
             case 'fail': {
@@ -68,7 +61,7 @@ function formatError(root) {
             }
             case 'context': {
                 const { expected, element, input, next } = node;
-                const path = path_1.default.join(element);
+                const path = Path.join(element);
                 const where = path === null || path === undefined ? 'in' : `at key path ${path} of`;
                 const example = input === null || input === undefined
                     ? []
@@ -77,7 +70,7 @@ function formatError(root) {
                 return walk(next, [...newLines, ...lines]);
             }
             default:
-                return (0, exhaustive_1.exhaustive)(node, 'ErrorStackT');
+                return exhaustive(node, 'ErrorStackT');
         }
     }
     return walk(root, []).join('\n');
@@ -128,7 +121,7 @@ function typeofDeep(root, maxDepth = 20) {
                 }
             }
         }
-        const pairs = (0, maybe_1.mapMaybes)(Object.keys(node), key => 
+        const pairs = mapMaybes(Object.keys(node), key => 
         // eslint-disable-next-line no-prototype-builtins
         node.hasOwnProperty(key) ? `${key}: ${walk(node[key], depth + 1)}` : null);
         return `{${pairs.join(', ')}}`;
@@ -136,7 +129,7 @@ function typeofDeep(root, maxDepth = 20) {
     return walk(root, 0);
 }
 // JSON.stringify ignores undefined and throws on circular objects
-function saferStringify(root) {
+export function saferStringify(root) {
     if (root === undefined) {
         return 'undefined';
     }
@@ -152,5 +145,5 @@ function saferStringify(root) {
 }
 // Indent string n spaces
 function indent(n, text) {
-    return `${(0, times_1.default)(n, () => ' ').join('')}${text}`;
+    return `${times(n, () => ' ').join('')}${text}`;
 }
