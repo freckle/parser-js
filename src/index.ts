@@ -1,6 +1,4 @@
-import reduce from 'lodash/reduce'
-import _map from 'lodash/map' // Underscored to avoid name clash
-import find from 'lodash/find'
+import {reduce, map as _map, find} from 'lodash'
 import moment, {type Moment} from 'moment-timezone'
 import {
   type NonEmptyArray,
@@ -9,14 +7,14 @@ import {
   unconsOnNonEmpty
 } from '@freckle/non-empty'
 
-import Path from './path'
-import {type PathT} from './path'
-import {type EitherT} from './either'
-import Either from './either'
-import {formatError} from './formatting'
+import Path from './path.js'
+import {type PathT} from './path.js'
+import {type EitherT} from './either.js'
+import Either from './either.js'
+import {formatError} from './formatting.js'
 
-export {saferStringify} from './formatting'
-export {parseExpect, parseSuccess, parseFailure} from './test-helper'
+export {saferStringify} from './formatting.js'
+export {parseExpect, parseSuccess, parseFailure} from './test-helper.js'
 
 // Recoverable errors mean we can try another parser in
 // firstOf. Fatal errors short circuit any operation.

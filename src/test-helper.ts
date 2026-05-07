@@ -1,6 +1,6 @@
-import identity from 'lodash/identity'
+import {identity} from 'lodash'
 
-import {type ParserT, Parser} from '.'
+import {type ParserT, Parser} from './index.js'
 
 // Set true to see parse results
 const verbose = false

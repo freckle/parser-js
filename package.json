@@ -1,13 +1,14 @@
 {
   "name": "@freckle/parser",
   "version": "2.0.0",
+  "type": "module",
   "description": "One that parses",
   "main": "./dist/index.js",
   "repository": "https://github.com/freckle/parser-js.git",
   "author": "Freckle",
   "license": "MIT",
   "scripts": {
-    "build": "tsc -d",
+    "build": "tsc -p tsconfig.build.json -d",
     "test": "vitest run",
     "format": "prettier --write 'src/**/*.js'",
     "check-git-clean": "./check-git-clean.sh"
