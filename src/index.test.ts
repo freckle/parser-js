@@ -1,4 +1,4 @@
-import forEach from 'lodash/forEach'
+import {forEach} from 'lodash'
 
 import {
   type ParserT,
@@ -26,9 +26,9 @@ import {
   tag,
   onSelf,
   stringMap
-} from './index'
+} from './index.js'
 
-import {parseExpect, parseSuccess, parseFailure} from './test-helper'
+import {parseExpect, parseSuccess, parseFailure} from './test-helper.js'
 
 describe('Parser', () => {
   describe('test', () => {

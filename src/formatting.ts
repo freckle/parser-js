@@ -1,11 +1,11 @@
-import times from 'lodash/times'
+import {times} from 'lodash'
 
 import {mapMaybes} from '@freckle/maybe'
 import {exhaustive} from '@freckle/exhaustive'
 
-import Path from './path'
+import Path from './path.js'
 
-import {type ErrorStackT} from './index'
+import {type ErrorStackT} from './index.js'
 
 // Format an ErrorStackT into a human-readable message
 //
