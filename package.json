@@ -21,7 +21,7 @@
     "moment-timezone": "0.6.3"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.24",
+    "@types/lodash": "^4.17.25",
     "jsdom": "^30.0.1",
     "prettier": "^3.9.6",
     "typescript": "^7.0.2",
