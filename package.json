@@ -4,6 +4,9 @@
   "type": "module",
   "description": "One that parses",
   "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
   "repository": "https://github.com/freckle/parser-js.git",
   "author": "Freckle",
   "license": "MIT",

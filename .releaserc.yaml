@@ -6,15 +6,10 @@ plugins:
   - - '@semantic-release/github'
     - successCommentCondition: false
 
-  # Update dist, in case Dependabot PRs merged without doing so
+  # Build dist fresh for each release; not committed back to the repo
+  # (npm packs whatever is on disk via the "files" allowlist in package.json)
   - - '@semantic-release/exec'
     - prepareCmd: 'pnpm install && pnpm run build'
-
-  - - '@semantic-release/git'
-    - assets:
-        - 'dist/**'
-        - 'package.json' # commit updated version back to source
-      message: 'chore(release): update dist and package.json'
 
   - '@semantic-release/npm'
 
