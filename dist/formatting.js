@@ -1,4 +1,4 @@
-import { times } from 'lodash';
+import times from 'lodash/times.js';
 import { mapMaybes } from '@freckle/maybe';
 import { exhaustive } from '@freckle/exhaustive';
 import Path from './path.js';

@@ -1,4 +1,6 @@
-import {reduce, map as _map, find} from 'lodash'
+import reduce from 'lodash/reduce.js'
+import _map from 'lodash/map.js'
+import find from 'lodash/find.js'
 import moment, {type Moment} from 'moment-timezone'
 import {
   type NonEmptyArray,

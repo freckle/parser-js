@@ -1,4 +1,6 @@
-import { reduce, map as _map, find } from 'lodash';
+import reduce from 'lodash/reduce.js';
+import _map from 'lodash/map.js';
+import find from 'lodash/find.js';
 import moment from 'moment-timezone';
 import { mkNonEmpty, mkNonEmptyFromHead, unconsOnNonEmpty } from '@freckle/non-empty';
 import Path from './path.js';

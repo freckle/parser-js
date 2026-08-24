@@ -1,4 +1,4 @@
-import { identity } from 'lodash';
+import identity from 'lodash/identity.js';
 import { Parser } from './index.js';
 // Set true to see parse results
 const verbose = false;

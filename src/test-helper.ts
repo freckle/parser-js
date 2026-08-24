@@ -1,4 +1,4 @@
-import {identity} from 'lodash'
+import identity from 'lodash/identity.js'
 
 import {type ParserT, Parser} from './index.js'
 
