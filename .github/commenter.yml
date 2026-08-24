@@ -5,5 +5,4 @@ PRChecklist:
   body: |
     **PR checklist**
 
-    - [ ] Version in `package.json` is updated according to semver policy.
     - [ ] Built `dist/` reflects all changes in PR prior to merge.
