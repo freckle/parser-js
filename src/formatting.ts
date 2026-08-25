@@ -1,5 +1,3 @@
-import times from 'lodash/times.js'
-
 import {mapMaybes} from '@freckle/maybe'
 import {exhaustive} from '@freckle/exhaustive'
 
@@ -167,5 +165,5 @@ export function saferStringify(root: any): string {
 
 // Indent string n spaces
 function indent(n: number, text: string): string {
-  return `${times(n, () => ' ').join('')}${text}`
+  return `${' '.repeat(n)}${text}`
 }

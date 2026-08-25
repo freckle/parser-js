@@ -1,6 +1,3 @@
-import reduce from 'lodash/reduce.js'
-import _map from 'lodash/map.js'
-import find from 'lodash/find.js'
 import {isValid, parseISO} from 'date-fns'
 import {
   type NonEmptyArray,
@@ -239,8 +236,7 @@ function collect<R>(
   const {path, expected} = args
 
   // Intentionally using mutation below
-  return reduce(
-    xs,
+  return xs.reduce<ParseResultT<Array<R>>>(
     (acc, x, i: number) => {
       return Either.liftA2(
         (result, parsed) => {
@@ -351,7 +347,7 @@ export function stringEnum<R>(
 // > oneOf('MyType', ['foo', 'bar', 'baz'])
 //
 export function oneOf<T extends string>(name: string, all: Array<T>): ParserT<T> {
-  return stringEnum(name, (text: string) => find(all, value => value === text))
+  return stringEnum(name, (text: string) => all.find(value => value === text))
 }
 
 // Parser that succeeds if any of its arguments succeeds
@@ -359,14 +355,13 @@ export function oneOf<T extends string>(name: string, all: Array<T>): ParserT<T>
 // Fatal errors do short circuit. Currently, these are only produced by using the
 // special tag() parser which allows committing early inside record()
 export function firstOf<R>(first: ParserT<R>, ...rest: Array<ParserT<R>>): ParserT<R> {
-  const expecteds = _map([first, ...rest], parser => parser.expected)
+  const expecteds = [first, ...rest].map(parser => parser.expected)
   const expected = `firstOf(${expecteds.join(', ')})`
   return {
     type: 'parser',
     expected,
     parse: (x, path) => {
-      return reduce(
-        rest,
+      return rest.reduce(
         (lhs, parser) => {
           if (Parser.isFatal(lhs)) {
             return lhs
@@ -391,7 +386,7 @@ export function firstOf<R>(first: ParserT<R>, ...rest: Array<ParserT<R>>): Parse
 export function fields<R>(parser: ParserT<R>, first: string, ...rest: Array<string>): RenamerT<R> {
   const {expected, parse} = parser
   const fields = mkNonEmptyFromHead(first, rest)
-  const expectedFields = _map(fields, field => stringify(field)).join(', ')
+  const expectedFields = fields.map(field => stringify(field)).join(', ')
   const prefix = rest.length === 0 ? 'field' : 'fields'
   return {
     type: 'renamer',
@@ -444,7 +439,7 @@ export function record<
   S extends {[key: string]: unknown} = {}
 >(parsers: T): ParserT<S> {
   const keys = Object.keys(parsers).sort()
-  const pairs = _map(keys, key => `${key}: ${parsers[key].expected}`)
+  const pairs = keys.map(key => `${key}: ${parsers[key].expected}`)
   const expected = `record({${pairs.join(', ')}})`
   const extracted = extractTagParser(parsers)
 
@@ -488,8 +483,7 @@ export function record<
       }
 
       // Intentionally using mutation below
-      const result = reduce(
-        keys,
+      const result = keys.reduce(
         (acc, key) => {
           return Either.liftA2(
             (result, parsed) => ({
@@ -502,8 +496,7 @@ export function record<
               const [first, rest] =
                 parser.type === 'renamer' ? unconsOnNonEmpty(parser.fields) : [key, []]
 
-              return reduce(
-                rest,
+              return rest.reduce(
                 (parsed, field) =>
                   Either.alt(
                     () => parsed,
@@ -535,24 +528,20 @@ export function stringMap<V>(parser: ParserT<V>): ParserT<Map<string, V>> {
       }
 
       // Intentionally using mutation below
-      return reduce(
-        Object.keys(x),
-        (acc, key) => {
-          return Either.liftA2(
-            (result, value) => {
-              result.set(key, value)
-              return result
-            },
-            () => acc,
-            () => {
-              const element = Path.key(path, key)
-              const parsed = parser.parse(x[key], element)
-              return Parser.context({element, expected, input: x}, parsed)
-            }
-          )
-        },
-        Parser.ok(new Map())
-      )
+      return Object.keys(x).reduce((acc, key) => {
+        return Either.liftA2(
+          (result, value) => {
+            result.set(key, value)
+            return result
+          },
+          () => acc,
+          () => {
+            const element = Path.key(path, key)
+            const parsed = parser.parse(x[key], element)
+            return Parser.context({element, expected, input: x}, parsed)
+          }
+        )
+      }, Parser.ok(new Map()))
     }
   }
 }

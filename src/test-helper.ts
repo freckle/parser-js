@@ -1,5 +1,3 @@
-import identity from 'lodash/identity.js'
-
 import {type ParserT, Parser} from './index.js'
 
 // Set true to see parse results
@@ -35,7 +33,7 @@ export function parseExpect<R>(expected: R, value: any, parser: ParserT<R>) {
     throw new Error(`\n${error}`)
   }
 
-  expect(Parser.runInternal(value, parser, identity, die)).toEqual(expected)
+  expect(Parser.runInternal(value, parser, result => result, die)).toEqual(expected)
 }
 
 // Expect parse to succeed

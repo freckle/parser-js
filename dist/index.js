@@ -1,6 +1,3 @@
-import reduce from 'lodash/reduce.js';
-import _map from 'lodash/map.js';
-import find from 'lodash/find.js';
 import { isValid, parseISO } from 'date-fns';
 import { mkNonEmpty, mkNonEmptyFromHead, unconsOnNonEmpty } from '@freckle/non-empty';
 import Path from './path.js';
@@ -140,7 +137,7 @@ export function nullableDefined(parser) {
 function collect(parser, xs, args) {
     const { path, expected } = args;
     // Intentionally using mutation below
-    return reduce(xs, (acc, x, i) => {
+    return xs.reduce((acc, x, i) => {
         return Either.liftA2((result, parsed) => {
             result[i] = parsed;
             return result;
@@ -229,20 +226,20 @@ export function stringEnum(name, parse) {
 // > oneOf('MyType', ['foo', 'bar', 'baz'])
 //
 export function oneOf(name, all) {
-    return stringEnum(name, (text) => find(all, value => value === text));
+    return stringEnum(name, (text) => all.find(value => value === text));
 }
 // Parser that succeeds if any of its arguments succeeds
 //
 // Fatal errors do short circuit. Currently, these are only produced by using the
 // special tag() parser which allows committing early inside record()
 export function firstOf(first, ...rest) {
-    const expecteds = _map([first, ...rest], parser => parser.expected);
+    const expecteds = [first, ...rest].map(parser => parser.expected);
     const expected = `firstOf(${expecteds.join(', ')})`;
     return {
         type: 'parser',
         expected,
         parse: (x, path) => {
-            return reduce(rest, (lhs, parser) => {
+            return rest.reduce((lhs, parser) => {
                 if (Parser.isFatal(lhs)) {
                     return lhs;
                 }
@@ -260,7 +257,7 @@ export function firstOf(first, ...rest) {
 export function fields(parser, first, ...rest) {
     const { expected, parse } = parser;
     const fields = mkNonEmptyFromHead(first, rest);
-    const expectedFields = _map(fields, field => stringify(field)).join(', ');
+    const expectedFields = fields.map(field => stringify(field)).join(', ');
     const prefix = rest.length === 0 ? 'field' : 'fields';
     return {
         type: 'renamer',
@@ -293,7 +290,7 @@ function extractTagParser(parsers) {
 // Parser for records where each key has its own parser
 export function record(parsers) {
     const keys = Object.keys(parsers).sort();
-    const pairs = _map(keys, key => `${key}: ${parsers[key].expected}`);
+    const pairs = keys.map(key => `${key}: ${parsers[key].expected}`);
     const expected = `record({${pairs.join(', ')}})`;
     const extracted = extractTagParser(parsers);
     return {
@@ -333,14 +330,14 @@ export function record(parsers) {
                 }
             };
             // Intentionally using mutation below
-            const result = reduce(keys, (acc, key) => {
+            const result = keys.reduce((acc, key) => {
                 return Either.liftA2((result, parsed) => ({
                     ...result,
                     [key]: parsed
                 }), () => acc, () => {
                     const parser = parsers[key];
                     const [first, rest] = parser.type === 'renamer' ? unconsOnNonEmpty(parser.fields) : [key, []];
-                    return reduce(rest, (parsed, field) => Either.alt(() => parsed, () => parseOne(parser, key, field)), parseOne(parser, first, first));
+                    return rest.reduce((parsed, field) => Either.alt(() => parsed, () => parseOne(parser, key, field)), parseOne(parser, first, first));
                 });
             }, Parser.ok({}));
             // Commit if we found a specific tag
@@ -359,7 +356,7 @@ export function stringMap(parser) {
                 return Parser.fail({ expected, got: x });
             }
             // Intentionally using mutation below
-            return reduce(Object.keys(x), (acc, key) => {
+            return Object.keys(x).reduce((acc, key) => {
                 return Either.liftA2((result, value) => {
                     result.set(key, value);
                     return result;
