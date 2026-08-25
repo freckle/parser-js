@@ -1,7 +1,7 @@
 import reduce from 'lodash/reduce.js';
 import _map from 'lodash/map.js';
 import find from 'lodash/find.js';
-import moment from 'moment-timezone';
+import { isValid, parseISO } from 'date-fns';
 import { mkNonEmpty, mkNonEmptyFromHead, unconsOnNonEmpty } from '@freckle/non-empty';
 import Path from './path.js';
 import Either from './either.js';
@@ -183,7 +183,8 @@ export function nonEmptyArray(parser) {
         }
     };
 }
-// Parser for dates represented as moments
+// Parser for dates represented as native Date objects. Accepts ISO-8601
+// only; ambiguous locale-dependent formats like '03/12/2016' are rejected.
 export function date() {
     const expected = 'date()';
     return {
@@ -193,8 +194,8 @@ export function date() {
             if (typeof x !== 'string') {
                 return Parser.fail({ expected, got: x });
             }
-            const parsed = moment(x);
-            if (!parsed.isValid()) {
+            const parsed = parseISO(x);
+            if (!isValid(parsed)) {
                 return Parser.fail({ expected, got: x });
             }
             return Parser.ok(parsed);
