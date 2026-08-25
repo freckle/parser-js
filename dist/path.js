@@ -1,4 +1,4 @@
-import { map } from 'lodash';
+import map from 'lodash/map.js';
 import { exhaustive } from '@freckle/exhaustive';
 const Path = {
     root() {
