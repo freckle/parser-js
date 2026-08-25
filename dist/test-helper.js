@@ -1,4 +1,3 @@
-import identity from 'lodash/identity.js';
 import { Parser } from './index.js';
 // Set true to see parse results
 const verbose = false;
@@ -29,7 +28,7 @@ export function parseExpect(expected, value, parser) {
         // Extra newline defeats jest's dumb error formatting
         throw new Error(`\n${error}`);
     }
-    expect(Parser.runInternal(value, parser, identity, die)).toEqual(expected);
+    expect(Parser.runInternal(value, parser, result => result, die)).toEqual(expected);
 }
 // Expect parse to succeed
 export function parseSuccess(value, parser) {

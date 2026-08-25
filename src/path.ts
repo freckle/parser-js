@@ -1,5 +1,3 @@
-import map from 'lodash/map.js'
-
 import {exhaustive} from '@freckle/exhaustive'
 
 // Represent components of a path into an object or array
@@ -38,7 +36,7 @@ const Path = {
 
   // Convert a Path into a string representation
   join(path: PathT): string | undefined | null {
-    const strings = map(path, component => {
+    const strings = path.map(component => {
       switch (component.tag) {
         case 'index':
           return component.index.toString()

@@ -1,4 +1,3 @@
-import map from 'lodash/map.js';
 import { exhaustive } from '@freckle/exhaustive';
 const Path = {
     root() {
@@ -18,7 +17,7 @@ const Path = {
     },
     // Convert a Path into a string representation
     join(path) {
-        const strings = map(path, component => {
+        const strings = path.map(component => {
             switch (component.tag) {
                 case 'index':
                     return component.index.toString();
