@@ -1,7 +1,7 @@
 import reduce from 'lodash/reduce.js'
 import _map from 'lodash/map.js'
 import find from 'lodash/find.js'
-import moment, {type Moment} from 'moment-timezone'
+import {isValid, parseISO} from 'date-fns'
 import {
   type NonEmptyArray,
   mkNonEmpty,
@@ -296,8 +296,9 @@ export function nonEmptyArray<R>(parser: ParserT<R>): ParserT<NonEmptyArray<R>> 
   }
 }
 
-// Parser for dates represented as moments
-export function date(): ParserT<Moment> {
+// Parser for dates represented as native Date objects. Accepts ISO-8601
+// only; ambiguous locale-dependent formats like '03/12/2016' are rejected.
+export function date(): ParserT<Date> {
   const expected = 'date()'
   return {
     type: 'parser',
@@ -307,8 +308,8 @@ export function date(): ParserT<Moment> {
         return Parser.fail({expected, got: x})
       }
 
-      const parsed = moment(x)
-      if (!parsed.isValid()) {
+      const parsed = parseISO(x)
+      if (!isValid(parsed)) {
         return Parser.fail({expected, got: x})
       }
 

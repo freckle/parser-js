@@ -37,8 +37,40 @@ describe('Parser', () => {
         parseSuccess('2016-03-12 13:00:00', date())
       })
 
+      test('should return a native Date', () => {
+        parseExpect(new Date(2016, 2, 12, 13, 0, 0), '2016-03-12 13:00:00', date())
+      })
+
+      test('should honor an explicit UTC offset', () => {
+        parseExpect(new Date(Date.UTC(2016, 2, 12, 13, 0, 0)), '2016-03-12T13:00:00Z', date())
+      })
+
+      // Date-only strings resolve to local midnight, not UTC midnight, which
+      // is what `new Date('2016-03-12')` would have given
+      test('should parse a date-only string as local midnight', () => {
+        parseExpect(new Date(2016, 2, 12), '2016-03-12', date())
+      })
+
       test('should fail for an invalid date string', () => {
         parseFailure('', date())
+      })
+
+      test('should succeed for a valid leap day', () => {
+        parseSuccess('2016-02-29', date())
+      })
+
+      test('should fail for calendar-impossible dates', () => {
+        for (const x of ['2016-02-30', '2016-13-01', '2015-02-29']) {
+          parseFailure(x, date())
+        }
+      })
+
+      // Locale-dependent formats are rejected: '03/12/2016' could be March 12
+      // or December 3
+      test('should fail for ambiguous non-ISO formats', () => {
+        for (const x of ['03/12/2016', 'March 12, 2016']) {
+          parseFailure(x, date())
+        }
       })
 
       test('should fail for incorrect type', () => {

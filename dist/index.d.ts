@@ -1,4 +1,3 @@
-import { type Moment } from 'moment-timezone';
 import { type NonEmptyArray } from '@freckle/non-empty';
 import { type PathT } from './path.js';
 import { type EitherT } from './either.js';
@@ -56,7 +55,7 @@ export declare function nullable<R>(parser: ParserT<R>): ParserT<R | undefined |
 export declare function nullableDefined<R>(parser: ParserT<R>): ParserT<null | R>;
 export declare function array<R>(parser: ParserT<R>): ParserT<Array<R>>;
 export declare function nonEmptyArray<R>(parser: ParserT<R>): ParserT<NonEmptyArray<R>>;
-export declare function date(): ParserT<Moment>;
+export declare function date(): ParserT<Date>;
 export declare function stringEnum<R>(name: string, parse: (text: string) => R | undefined | null): ParserT<R>;
 export declare function oneOf<T extends string>(name: string, all: Array<T>): ParserT<T>;
 export declare function firstOf<R>(first: ParserT<R>, ...rest: Array<ParserT<R>>): ParserT<R>;
