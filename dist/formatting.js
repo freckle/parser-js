@@ -120,9 +120,7 @@ function typeofDeep(root, maxDepth = 20) {
                 }
             }
         }
-        const pairs = mapMaybes(Object.keys(node), key => 
-        // eslint-disable-next-line no-prototype-builtins
-        node.hasOwnProperty(key) ? `${key}: ${walk(node[key], depth + 1)}` : null);
+        const pairs = mapMaybes(Object.keys(node), key => node.hasOwnProperty(key) ? `${key}: ${walk(node[key], depth + 1)}` : null);
         return `{${pairs.join(', ')}}`;
     }
     return walk(root, 0);
