@@ -13,8 +13,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json -d",
     "test": "vitest run",
-    "format": "prettier --write 'src/**/*.ts'",
-    "check-git-clean": "./check-git-clean.sh"
+    "format": "prettier --write 'src/**/*.ts'"
   },
   "dependencies": {
     "@freckle/exhaustive": "^1.1.0",
