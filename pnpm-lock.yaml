@@ -12,8 +12,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0
       '@freckle/maybe':
-        specifier: ^2.3.0
-        version: 2.3.0
+        specifier: ^2.3.1
+        version: 2.3.1
       '@freckle/non-empty':
         specifier: ^3.0.0
         version: 3.0.0
@@ -249,8 +249,8 @@ packages:
   '@freckle/exhaustive@1.1.0':
     resolution: {integrity: sha512-YX2jQGptML1vM3K7k1o9VUb9yOsLkX4Nv8MjD3zbtLijtLQ+H5nBIhswiFjaupbUNMUtV0C0GRSG+oeZmB/p6A==}
 
-  '@freckle/maybe@2.3.0':
-    resolution: {integrity: sha512-I+qNU+CUEQORuKXUK35W2SMLU9KU5j+EgneJw84fe/sJyIvitDD0zfSWCaTnkWGQTl5IFJS8l3WGSGQtsAikiQ==}
+  '@freckle/maybe@2.3.1':
+    resolution: {integrity: sha512-lhomXb70nQbq1ASaDDc7PoPMrT7kav/FcYsoD6yfFetreN03SbZb1dawxAZxMs7ojx0eqGHaStut9A+hA60QoQ==}
 
   '@freckle/non-empty@3.0.0':
     resolution: {integrity: sha512-U81oCTw9kNZo29an7qEew4ro0VqHbEiwivm57CJMHvFKUomWrtmTew6kJY1SoVJqWde2AChpBucy+TVFWfkwoA==}
@@ -637,9 +637,6 @@ packages:
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
-  lodash@4.18.1:
-    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
-
   lru-cache@11.5.2:
     resolution: {integrity: sha512-4pfM1Ff0x50o0tQwb5ucw/RzNyD0/YJME6IVcStalZuMWxdt3sR3huStTtxz4PUmvZfRguvDejasvQ2kifR11g==}
     engines: {node: 20 || >=22}
@@ -1002,13 +999,11 @@ snapshots:
 
   '@freckle/exhaustive@1.1.0': {}
 
-  '@freckle/maybe@2.3.0':
-    dependencies:
-      lodash: 4.18.1
+  '@freckle/maybe@2.3.1': {}
 
   '@freckle/non-empty@3.0.0':
     dependencies:
-      '@freckle/maybe': 2.3.0
+      '@freckle/maybe': 2.3.1
       lodash: 4.17.21
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
@@ -1315,8 +1310,6 @@ snapshots:
     optional: true
 
   lodash@4.17.21: {}
-
-  lodash@4.18.1: {}
 
   lru-cache@11.5.2:
     optional: true
