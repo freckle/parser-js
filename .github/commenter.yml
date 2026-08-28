@@ -1,8 +1,0 @@
-PRChecklist:
-  where:
-    path:
-      matches: 'src/**/*'
-  body: |
-    **PR checklist**
-
-    - [ ] Built `dist/` reflects all changes in PR prior to merge.

@@ -138,7 +138,6 @@ function typeofDeep(root: any, maxDepth: number = 20): string {
     }
 
     const pairs = mapMaybes(Object.keys(node), key =>
-      // eslint-disable-next-line no-prototype-builtins
       node.hasOwnProperty(key) ? `${key}: ${walk(node[key], depth + 1)}` : null
     )
 
