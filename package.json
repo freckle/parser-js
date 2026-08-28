@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@freckle/exhaustive": "^1.1.0",
-    "@freckle/maybe": "^2.3.0",
+    "@freckle/maybe": "^2.3.1",
     "@freckle/non-empty": "^3.0.0",
     "date-fns": "^4.4.0"
   },
