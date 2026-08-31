@@ -28,6 +28,18 @@ import {date, mapStatic} from '@freckle/parser'
 const momentDate = () => mapStatic(date(), d => moment(d))
 ```
 
+## Development
+
+- **Package manager**: pnpm (Node version pinned in `.nvmrc`)
+- `pnpm build` — `tsc`, emits to `dist/`
+- `pnpm test` — Vitest
+- `pnpm coverage` — Vitest with coverage, gated at 70% (lines/branches/functions/statements)
+- `pnpm typecheck` — `tsc --noEmit`, includes test files
+- `pnpm lint` — ESLint
+- `pnpm format` / `pnpm format-check` — Prettier
+- `pnpm knip` — unused files/dependencies/exports
+- CI runs all of the above on every PR, plus a check that `dist/` is up to date
+
 ## Release
 
 See [RELEASE.md](./RELEASE.md).

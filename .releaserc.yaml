@@ -6,11 +6,6 @@ plugins:
   - - '@semantic-release/github'
     - successCommentCondition: false
 
-  # Build dist fresh for each release; not committed back to the repo
-  # (npm packs whatever is on disk via the "files" allowlist in package.json)
-  - - '@semantic-release/exec'
-    - prepareCmd: 'pnpm install && pnpm run build'
-
   - '@semantic-release/npm'
 
 branches:
