@@ -2,7 +2,7 @@
   "name": "@freckle/parser",
   "version": "2.0.0",
   "description": "One that parses",
-  "author": "Freckle",
+  "author": "Renaissance Learning Inc",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
