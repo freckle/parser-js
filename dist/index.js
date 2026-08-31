@@ -421,7 +421,7 @@ export function obfuscated(parser) {
             try {
                 unObfuscated = JSON.parse(b64DecodeUnicode(s));
             }
-            catch (e) {
+            catch {
                 return Parser.fail({ expected, got: s });
             }
             return parser.parse(unObfuscated, path);

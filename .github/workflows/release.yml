@@ -14,15 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
-        with:
-          cache: pnpm
       - uses: cycjimmy/semantic-release-action@v6.0.0
+        # conventional-changelog-conventionalcommits is held at 9.x: v10 needs
+        # conventional-changelog-writer@9, which semantic-release@25 does not ship.
         with:
           extra_plugins: |
             conventional-changelog-conventionalcommits@9
-            @semantic-release/exec
         env:
           FORCE_COLOR: 1
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

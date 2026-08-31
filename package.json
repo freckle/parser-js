@@ -1,19 +1,27 @@
 {
   "name": "@freckle/parser",
   "version": "2.0.0",
-  "type": "module",
   "description": "One that parses",
+  "author": "Renaissance Learning Inc",
+  "license": "MIT",
+  "type": "module",
   "main": "./dist/index.js",
   "files": [
     "dist"
   ],
-  "repository": "https://github.com/freckle/parser-js.git",
-  "author": "Freckle",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freckle/parser-js.git"
+  },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json -d",
+    "build": "rm -r dist && tsc -p tsconfig.build.json",
     "test": "vitest run",
-    "format": "prettier --write 'src/**/*.ts'"
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write 'src/**/*.ts'",
+    "format-check": "prettier --check 'src/**/*.ts'",
+    "lint": "eslint",
+    "knip": "knip"
   },
   "dependencies": {
     "@freckle/exhaustive": "^1.1.0",
@@ -22,9 +30,14 @@
     "date-fns": "^4.4.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@vitest/coverage-v8": "^4.1.11",
+    "eslint": "^10.9.1",
+    "knip": "^6.32.3",
     "prettier": "^3.9.6",
-    "typescript": "^7.0.2",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.68.0",
     "vitest": "^4.1.11"
   },
-  "packageManager": "pnpm@11.24.0"
+  "packageManager": "pnpm@11.24.0+sha512.bd27e345e976dcb0be0b7a1228217b049a817e21b1f355c90dbe7dc46671895a8bc1e6d06c24554505ea93ea0b45f489a27ec1bfbc8de6a9659fca0f16fa0000"
 }
