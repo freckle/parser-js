@@ -436,6 +436,9 @@ export function record<
   T extends {
     [P in keyof S]: RecordParserT<S[P]>
   },
+  // `{}` is the intended fallback when S can't be inferred from T; narrowing it
+  // would reject record shapes callers can express today
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   S extends {[key: string]: unknown} = {}
 >(parsers: T): ParserT<S> {
   const keys = Object.keys(parsers).sort()
@@ -550,7 +553,7 @@ export function stringMap<V>(parser: ParserT<V>): ParserT<Map<string, V>> {
 export function merge<L extends object, R extends object>(
   lhs: ParserT<L>,
   rhs: ParserT<R>
-): ParserT<{} & L & R> {
+): ParserT<L & R> {
   const expected = `merge(${lhs.expected}, ${rhs.expected})`
   return {
     type: 'parser',
@@ -609,7 +612,7 @@ export function obfuscated<R>(parser: ParserT<R>): ParserT<R> {
         let unObfuscated
         try {
           unObfuscated = JSON.parse(b64DecodeUnicode(s))
-        } catch (e) {
+        } catch {
           return Parser.fail({expected, got: s})
         }
         return parser.parse(unObfuscated, path)
