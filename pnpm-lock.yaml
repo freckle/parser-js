@@ -12,8 +12,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       '@freckle/maybe':
-        specifier: ^2.3.1
-        version: 2.3.1
+        specifier: ^3.0.0
+        version: 3.0.0
       '@freckle/non-empty':
         specifier: ^3.0.0
         version: 3.0.0
@@ -38,6 +38,9 @@ packages:
 
   '@freckle/maybe@2.3.1':
     resolution: {integrity: sha512-lhomXb70nQbq1ASaDDc7PoPMrT7kav/FcYsoD6yfFetreN03SbZb1dawxAZxMs7ojx0eqGHaStut9A+hA60QoQ==}
+
+  '@freckle/maybe@3.0.0':
+    resolution: {integrity: sha512-Fbur69nzwdHxz6PvwXrD3wurBnJa2/YcE4La8kDJ8IGsbCKdgWBk6i/6d3VbS8SCYJbkAjR+ghdN8BfN0lG0pg==}
 
   '@freckle/non-empty@3.0.0':
     resolution: {integrity: sha512-U81oCTw9kNZo29an7qEew4ro0VqHbEiwivm57CJMHvFKUomWrtmTew6kJY1SoVJqWde2AChpBucy+TVFWfkwoA==}
@@ -590,6 +593,8 @@ snapshots:
   '@freckle/exhaustive@2.0.0': {}
 
   '@freckle/maybe@2.3.1': {}
+
+  '@freckle/maybe@3.0.0': {}
 
   '@freckle/non-empty@3.0.0':
     dependencies:
