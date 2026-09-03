@@ -15,8 +15,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
       '@freckle/non-empty':
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^5.0.0
+        version: 5.0.0
       date-fns:
         specifier: ^4.4.0
         version: 4.4.0
@@ -36,14 +36,11 @@ packages:
   '@freckle/exhaustive@2.0.0':
     resolution: {integrity: sha512-8+iK347puOu0MhCOchH8rFW+bCiNxpYt8J5SiFVp6adYAVZYmH9wxKn3b0v3RY4vGUN56GRB3/csFJFe9elVEw==}
 
-  '@freckle/maybe@2.3.1':
-    resolution: {integrity: sha512-lhomXb70nQbq1ASaDDc7PoPMrT7kav/FcYsoD6yfFetreN03SbZb1dawxAZxMs7ojx0eqGHaStut9A+hA60QoQ==}
-
   '@freckle/maybe@3.0.0':
     resolution: {integrity: sha512-Fbur69nzwdHxz6PvwXrD3wurBnJa2/YcE4La8kDJ8IGsbCKdgWBk6i/6d3VbS8SCYJbkAjR+ghdN8BfN0lG0pg==}
 
-  '@freckle/non-empty@3.0.0':
-    resolution: {integrity: sha512-U81oCTw9kNZo29an7qEew4ro0VqHbEiwivm57CJMHvFKUomWrtmTew6kJY1SoVJqWde2AChpBucy+TVFWfkwoA==}
+  '@freckle/non-empty@5.0.0':
+    resolution: {integrity: sha512-tlLsOjl/J43RRLh+CiKfrbaWEuBBdBBHL+/hwXT4pLw1w23LPcu4CSvfSliq0x5bZJxrwGQhyTMQL6EATmvWYw==}
 
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
@@ -427,8 +424,8 @@ packages:
     resolution: {integrity: sha512-WkUDrojuJs0xkgGf2udWxa3yGBRxPtxUkB79i6aCZLRgc7PM8fZe9TosfPDcvEpQZbuFASnHYmRLBLUbmLOIIA==}
     engines: {node: '>= 12.0.0'}
 
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+  lodash@4.18.1:
+    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
@@ -592,14 +589,12 @@ snapshots:
 
   '@freckle/exhaustive@2.0.0': {}
 
-  '@freckle/maybe@2.3.1': {}
-
   '@freckle/maybe@3.0.0': {}
 
-  '@freckle/non-empty@3.0.0':
+  '@freckle/non-empty@5.0.0':
     dependencies:
-      '@freckle/maybe': 2.3.1
-      lodash: 4.17.21
+      '@freckle/maybe': 3.0.0
+      lodash: 4.18.1
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
@@ -838,7 +833,7 @@ snapshots:
       lightningcss-win32-arm64-msvc: 1.33.0
       lightningcss-win32-x64-msvc: 1.33.0
 
-  lodash@4.17.21: {}
+  lodash@4.18.1: {}
 
   magic-string@0.30.21:
     dependencies:
