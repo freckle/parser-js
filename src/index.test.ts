@@ -30,7 +30,7 @@ import {parseExpect, parseSuccess, parseFailure} from './test-helper.js'
 
 describe('Parser', () => {
   describe('test', () => {
-    describe('date', () => {
+    describe(date.name, () => {
       test('should succeed for valid date string', () => {
         parseSuccess('2016-03-12 13:00:00', date())
       })
@@ -78,7 +78,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('literal', () => {
+    describe(literal.name, () => {
       test('should succeed for specific string', () => {
         parseSuccess('x', literal('x'))
       })
@@ -94,7 +94,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('string', () => {
+    describe(string.name, () => {
       test('should succeed for string', () => {
         parseSuccess('', string())
       })
@@ -106,7 +106,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('stringInt', () => {
+    describe(stringInt.name, () => {
       test('should succeed for string that can be parsed as an int', () => {
         parseSuccess('10', stringInt())
       })
@@ -118,7 +118,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('number', () => {
+    describe(number.name, () => {
       test('should succeed for number', () => {
         parseSuccess(1, number())
       })
@@ -134,7 +134,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('rounded', () => {
+    describe(rounded.name, () => {
       test('should succeed for whole number', () => {
         parseExpect(1, 1, rounded())
       })
@@ -151,7 +151,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('fixed', () => {
+    describe(fixed.name, () => {
       test('should succeed for whole number', () => {
         parseExpect(1, 1, fixed(1))
         parseExpect(1, 1, fixed(2))
@@ -171,7 +171,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('boolean', () => {
+    describe(boolean.name, () => {
       test('should succeed for true', () => {
         parseSuccess(true, boolean())
       })
@@ -187,7 +187,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('nullable', () => {
+    describe(nullable.name, () => {
       test('should succeed for null', () => {
         parseSuccess(null, nullable(number()))
       })
@@ -207,7 +207,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('nullableDefined', () => {
+    describe(nullableDefined.name, () => {
       test('should succeed for null', () => {
         parseSuccess(null, nullableDefined(number()))
       })
@@ -227,7 +227,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('nullableDefault', () => {
+    describe(nullableDefault.name, () => {
       test('should return the default for null', () => {
         parseExpect(0, null, nullableDefault(number(), 0))
       })
@@ -243,7 +243,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('array', () => {
+    describe(array.name, () => {
       test('should succeed for empty array', () => {
         parseSuccess([], array(number()))
       })
@@ -269,7 +269,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('nonEmptyArray', () => {
+    describe(nonEmptyArray.name, () => {
       test('should fail for empty array', () => {
         parseFailure([], nonEmptyArray(number()))
       })
@@ -295,7 +295,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('stringEnum', () => {
+    describe(stringEnum.name, () => {
       type BooleanT = 'yes' | 'no'
 
       function parseBoolean(text: string): BooleanT | undefined | null {
@@ -324,7 +324,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('firstOf', () => {
+    describe(firstOf.name, () => {
       test('should allow one parser', () => {
         parseSuccess(0, firstOf(number()))
         parseFailure(0, firstOf(string()))
@@ -350,7 +350,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('record', () => {
+    describe(record.name, () => {
       test('should succeed for empty object', () => {
         parseSuccess({}, record({}))
       })
@@ -380,7 +380,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('field', () => {
+    describe(field.name, () => {
       test('should rename input field', () => {
         const parser = record({a: field(number(), 'b')})
         parseExpect({a: 0}, {b: 0}, parser)
@@ -388,7 +388,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('fields', () => {
+    describe(fields.name, () => {
       test('should pick the first successful field', () => {
         const parser = record({a: fields(number(), 'b', 'c')})
         parseExpect({a: 0}, {b: 0}, parser)
@@ -398,7 +398,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('onSelf', () => {
+    describe(onSelf.name, () => {
       test('should apply a parser to the outer object', () => {
         const point2D = record({x: number(), y: number()})
         const point3D = record({x: number(), y: number(), z: number()})
@@ -411,7 +411,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('stringMap', () => {
+    describe(stringMap.name, () => {
       test('should succeed for empty object', () => {
         parseSuccess({}, stringMap(string()))
       })
@@ -449,7 +449,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('merge', () => {
+    describe(merge.name, () => {
       test('should succeed for empty object', () => {
         parseSuccess({}, merge(record({}), record({})))
       })
@@ -548,7 +548,7 @@ describe('Parser', () => {
       })
     })
 
-    describe('obfuscated', () => {
+    describe(obfuscated.name, () => {
       test('should fail when the field does not exist', () => {
         parseFailure(null, obfuscated(record({a: number()})))
       })
