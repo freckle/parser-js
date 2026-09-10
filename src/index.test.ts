@@ -344,7 +344,7 @@ describe('Parser', () => {
           parse: () => {
             throw new Error('firstOf should have failed in x parser')
           }
-        } as ParserT<{}>
+        } as ParserT<never>
         parseSuccess({tag: 'x', contents: 3}, firstOf(x, y))
         parseFailure({tag: 'x', contents: 'x'}, firstOf(x, y))
       })
