@@ -14,7 +14,7 @@
     "url": "git+https://github.com/freckle/parser-js.git"
   },
   "scripts": {
-    "build": "rm -r dist && tsc -p tsconfig.build.json",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
