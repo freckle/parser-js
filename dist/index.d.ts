@@ -67,7 +67,7 @@ export declare function record<T extends {
     [key: string]: unknown;
 } = {}>(parsers: T): ParserT<S>;
 export declare function stringMap<V>(parser: ParserT<V>): ParserT<Map<string, V>>;
-export declare function merge<L extends object, R extends object>(lhs: ParserT<L>, rhs: ParserT<R>): ParserT<{} & L & R>;
+export declare function merge<L extends object, R extends object>(lhs: ParserT<L>, rhs: ParserT<R>): ParserT<L & R>;
 export declare function mapStatic<A, B>(parser: ParserT<A>, f: (a: A) => B): ParserT<B>;
 export declare function map<A, B>(parser: ParserT<A>, name: string, f: (a: A) => B): ParserT<B>;
 export declare function obfuscated<R>(parser: ParserT<R>): ParserT<R>;

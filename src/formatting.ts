@@ -138,7 +138,7 @@ function typeofDeep(root: any, maxDepth: number = 20): string {
     }
 
     const pairs = mapMaybes(Object.keys(node), key =>
-      node.hasOwnProperty(key) ? `${key}: ${walk(node[key], depth + 1)}` : null
+      Object.hasOwn(node, key) ? `${key}: ${walk(node[key], depth + 1)}` : null
     )
 
     return `{${pairs.join(', ')}}`
