@@ -179,9 +179,9 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0
     devDependencies:
-      '@eslint/js':
-        specifier: ^10.0.1
-        version: 10.0.1(eslint@10.10.0(jiti@2.7.0))
+      '@freckle/eslint-config':
+        specifier: ^1.0.0
+        version: 1.0.0(eslint@10.10.0(jiti@2.7.0))(typescript@6.0.3)
       '@vitest/coverage-v8':
         specifier: ^5.0.1
         version: 5.0.1(vitest@5.0.1)
@@ -197,9 +197,6 @@ importers:
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
-      typescript-eslint:
-        specifier: ^8.70.0
-        version: 8.70.0(eslint@10.10.0(jiti@2.7.0))(typescript@6.0.3)
       vitest:
         specifier: ^5.0.1
         version: 5.0.1(@vitest/coverage-v8@5.0.1)(vite@8.2.2(jiti@2.7.0)(yaml@2.9.0))
@@ -280,6 +277,11 @@ packages:
   '@eslint/plugin-kit@0.7.3':
     resolution: {integrity: sha512-IkO+/KEUvwbVpiURZg+P7zF74z5Jxe0UgJxVni+RtoHQ6IZieXaO02kmadomap/q+l6bc/jdPGGqTjhuZnuz1Q==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
+
+  '@freckle/eslint-config@1.0.0':
+    resolution: {integrity: sha512-eLyOGDXOPPkLeiDqs8YZN2vaPbzhl6Hrn1aGkLIu47jlRacdDgKiQ72o/sM/8XmS/z+bDqSMrt38oa30MbaItw==}
+    peerDependencies:
+      eslint: '>= 9'
 
   '@freckle/exhaustive@2.0.0':
     resolution: {integrity: sha512-8+iK347puOu0MhCOchH8rFW+bCiNxpYt8J5SiFVp6adYAVZYmH9wxKn3b0v3RY4vGUN56GRB3/csFJFe9elVEw==}
@@ -1446,6 +1448,15 @@ snapshots:
     dependencies:
       '@eslint/core': 1.2.1
       levn: 0.4.1
+
+  '@freckle/eslint-config@1.0.0(eslint@10.10.0(jiti@2.7.0))(typescript@6.0.3)':
+    dependencies:
+      '@eslint/js': 10.0.1(eslint@10.10.0(jiti@2.7.0))
+      eslint: 10.10.0(jiti@2.7.0)
+      typescript-eslint: 8.70.0(eslint@10.10.0(jiti@2.7.0))(typescript@6.0.3)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
 
   '@freckle/exhaustive@2.0.0': {}
 
