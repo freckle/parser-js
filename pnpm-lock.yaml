@@ -182,6 +182,9 @@ importers:
       '@freckle/eslint-config':
         specifier: ^1.0.0
         version: 1.0.0(eslint@10.11.0(jiti@2.7.0))(typescript@6.0.3)
+      '@freckle/tsconfig':
+        specifier: ^1.1.0
+        version: 1.1.0(typescript@6.0.3)
       '@vitest/coverage-v8':
         specifier: ^5.0.1
         version: 5.0.1(vitest@5.0.1)
@@ -294,6 +297,11 @@ packages:
 
   '@freckle/non-empty@3.0.0':
     resolution: {integrity: sha512-U81oCTw9kNZo29an7qEew4ro0VqHbEiwivm57CJMHvFKUomWrtmTew6kJY1SoVJqWde2AChpBucy+TVFWfkwoA==}
+
+  '@freckle/tsconfig@1.1.0':
+    resolution: {integrity: sha512-gNZOEMEYweG9UHsK62uz43W23id+qRUEpFc77Doww5CTWI48ZnSATb/RihhClAirOddu7zKZoQrU1x+hDBw4Hg==}
+    peerDependencies:
+      typescript: '>= 5'
 
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
@@ -1473,6 +1481,10 @@ snapshots:
     dependencies:
       '@freckle/maybe': 2.3.1
       lodash: 4.17.21
+
+  '@freckle/tsconfig@1.1.0(typescript@6.0.3)':
+    dependencies:
+      typescript: 6.0.3
 
   '@humanfs/core@0.19.2':
     dependencies:
