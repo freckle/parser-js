@@ -1,19 +1,11 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@freckle/tsconfig/library.json",
   "compilerOptions": {
-    "target": "ES2023",
+    // `atob` and `console` are browser globals: this package is consumed in
+    // browser contexts. Additive to the shared set, and `lib` replaces rather
+    // than merges, so ES2023 has to be restated alongside DOM.
     "lib": ["ES2023", "DOM"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "strict": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "skipLibCheck": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "noEmitOnError": true,
-    "declaration": true,
     "rootDir": "src",
     "outDir": "dist",
     "types": ["vitest/globals"]
