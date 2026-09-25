@@ -30,7 +30,7 @@
     "date-fns": "^4.4.0"
   },
   "devDependencies": {
-    "@freckle/eslint-config": "^1.0.0",
+    "@freckle/eslint-config": "^1.1.0",
     "@freckle/tsconfig": "^1.1.0",
     "@vitest/coverage-v8": "^5.0.1",
     "eslint": "^10.11.0",
